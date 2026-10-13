@@ -17,8 +17,8 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	api "github.com/rwx-core/remnawave-api-go/v3/api"
 	"github.com/ogen-go/ogen/validate"
+	api "github.com/rwx-core/remnawave-api-go/v3/api"
 )
 
 type staticAuth struct{}

@@ -29,42 +29,30 @@ func trimTrailingSlashes(u *url.URL) {
 
 // Invoker invokes operations described by OpenAPI v3 specification.
 type Invoker interface {
+	// HwidUserDevicesControllerDeleteUserHwidDevice invokes HwidUserDevicesController_deleteUserHwidDevice operation.
+	//
+	// Delete a user HWID device.
+	//
+	// POST /api/hwid/devices/delete
+	HwidUserDevicesControllerDeleteUserHwidDevice(ctx context.Context, request *DeleteUserHwidDeviceBodyDto) (HwidUserDevicesControllerDeleteUserHwidDeviceRes, error)
 	// HwidUserDevicesControllerGetUserHwidDevices invokes HwidUserDevicesController_getUserHwidDevices operation.
 	//
 	// Get user HWID devices.
 	//
 	// GET /api/hwid/devices/{userId}
 	HwidUserDevicesControllerGetUserHwidDevices(ctx context.Context, params HwidUserDevicesControllerGetUserHwidDevicesParams) (HwidUserDevicesControllerGetUserHwidDevicesRes, error)
-	// InternalSquadControllerCreateInternalSquad invokes InternalSquadController_createInternalSquad operation.
-	//
-	// Create internal squad.
-	//
-	// POST /api/internal-squads
-	InternalSquadControllerCreateInternalSquad(ctx context.Context, request *CreateInternalSquadBodyDto) (InternalSquadControllerCreateInternalSquadRes, error)
 	// InternalSquadControllerGetInternalSquads invokes InternalSquadController_getInternalSquads operation.
 	//
 	// Get all internal squads.
 	//
 	// GET /api/internal-squads
 	InternalSquadControllerGetInternalSquads(ctx context.Context) (InternalSquadControllerGetInternalSquadsRes, error)
-	// InternalSquadControllerUpdateInternalSquad invokes InternalSquadController_updateInternalSquad operation.
-	//
-	// Update internal squad.
-	//
-	// PATCH /api/internal-squads
-	InternalSquadControllerUpdateInternalSquad(ctx context.Context, request *UpdateInternalSquadBodyDto) (InternalSquadControllerUpdateInternalSquadRes, error)
 	// UsersControllerCreateUser invokes UsersController_createUser operation.
 	//
 	// Create a new user.
 	//
 	// POST /api/users
 	UsersControllerCreateUser(ctx context.Context, request *CreateUserBodyDto) (UsersControllerCreateUserRes, error)
-	// UsersControllerDeleteUser invokes UsersController_deleteUser operation.
-	//
-	// Delete user.
-	//
-	// DELETE /api/users/{userId}
-	UsersControllerDeleteUser(ctx context.Context, params UsersControllerDeleteUserParams) (UsersControllerDeleteUserRes, error)
 	// UsersControllerDisableUser invokes UsersController_disableUser operation.
 	//
 	// Disable user.
@@ -89,14 +77,6 @@ type Invoker interface {
 	//
 	// GET /api/users/by-username/{username}
 	UsersControllerGetUserByUsername(ctx context.Context, params UsersControllerGetUserByUsernameParams) (UsersControllerGetUserByUsernameRes, error)
-	// UsersControllerGetUsers invokes UsersController_getUsers operation.
-	//
-	// Please note that the filters here are primarily intended for use by the frontend and rely on
-	// expensive operators such as LIKE under the hood. Misusing these filters may negatively impact the
-	// performance of your database.
-	//
-	// GET /api/users
-	UsersControllerGetUsers(ctx context.Context, params UsersControllerGetUsersParams) (UsersControllerGetUsersRes, error)
 	// UsersControllerRevokeUserSubscription invokes UsersController_revokeUserSubscription operation.
 	//
 	// Revoke user subscription.
@@ -150,6 +130,122 @@ func (c *Client) requestURL(ctx context.Context) *url.URL {
 		return c.serverURL
 	}
 	return u
+}
+
+// HwidUserDevicesControllerDeleteUserHwidDevice invokes HwidUserDevicesController_deleteUserHwidDevice operation.
+//
+// Delete a user HWID device.
+//
+// POST /api/hwid/devices/delete
+func (c *Client) HwidUserDevicesControllerDeleteUserHwidDevice(ctx context.Context, request *DeleteUserHwidDeviceBodyDto) (HwidUserDevicesControllerDeleteUserHwidDeviceRes, error) {
+	res, err := c.sendHwidUserDevicesControllerDeleteUserHwidDevice(ctx, request)
+	return res, err
+}
+
+func (c *Client) sendHwidUserDevicesControllerDeleteUserHwidDevice(ctx context.Context, request *DeleteUserHwidDeviceBodyDto) (res HwidUserDevicesControllerDeleteUserHwidDeviceRes, err error) {
+	otelAttrs := []attribute.KeyValue{
+		otelogen.OperationID("HwidUserDevicesController_deleteUserHwidDevice"),
+		semconv.HTTPRequestMethodKey.String("POST"),
+		semconv.URLTemplateKey.String("/api/hwid/devices/delete"),
+	}
+	otelAttrs = append(otelAttrs, c.cfg.Attributes...)
+
+	// Run stopwatch.
+	startTime := time.Now()
+	defer func() {
+		// Use floating point division here for higher precision (instead of Millisecond method).
+		elapsedDuration := time.Since(startTime)
+		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
+	}()
+
+	// Increment request counter.
+	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+
+	// Start a span for this request.
+	ctx, span := c.cfg.Tracer.Start(ctx, HwidUserDevicesControllerDeleteUserHwidDeviceOperation,
+		trace.WithAttributes(otelAttrs...),
+		clientSpanKind,
+	)
+	// Track stage for error reporting.
+	var stage string
+	defer func() {
+		if err != nil {
+			span.RecordError(err)
+			span.SetStatus(codes.Error, stage)
+			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
+		}
+		span.End()
+	}()
+
+	stage = "BuildURL"
+	u := uri.Clone(c.requestURL(ctx))
+	var pathParts [1]string
+	pathParts[0] = "/api/hwid/devices/delete"
+	uri.AddPathParts(u, pathParts[:]...)
+
+	stage = "EncodeRequest"
+	r, err := ht.NewRequest(ctx, "POST", u)
+	if err != nil {
+		return res, errors.Wrap(err, "create request")
+	}
+	if err := encodeHwidUserDevicesControllerDeleteUserHwidDeviceRequest(request, r); err != nil {
+		return res, errors.Wrap(err, "encode request")
+	}
+
+	{
+		type bitset = [1]uint8
+		var satisfied bitset
+		{
+			stage = "Security:Authorization"
+			switch err := c.securityAuthorization(ctx, HwidUserDevicesControllerDeleteUserHwidDeviceOperation, r); {
+			case err == nil: // if NO error
+				satisfied[0] |= 1 << 0
+			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
+				// Skip this security.
+			default:
+				return res, errors.Wrap(err, "security \"Authorization\"")
+			}
+		}
+
+		if ok := func() bool {
+		nextRequirement:
+			for _, requirement := range []bitset{
+				{0b00000001},
+			} {
+				for i, mask := range requirement {
+					if satisfied[i]&mask != mask {
+						continue nextRequirement
+					}
+				}
+				return true
+			}
+			return false
+		}(); !ok {
+			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
+		}
+	}
+
+	stage = "SendRequest"
+	resp, err := c.cfg.Client.Do(r)
+	if err != nil {
+		return res, errors.Wrap(err, "do request")
+	}
+	body := resp.Body
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
+
+	stage = "DecodeResponse"
+	result, err := decodeHwidUserDevicesControllerDeleteUserHwidDeviceResponse(resp)
+	if err != nil {
+		return res, errors.Wrap(err, "decode response")
+	}
+
+	return result, nil
 }
 
 // HwidUserDevicesControllerGetUserHwidDevices invokes HwidUserDevicesController_getUserHwidDevices operation.
@@ -283,122 +379,6 @@ func (c *Client) sendHwidUserDevicesControllerGetUserHwidDevices(ctx context.Con
 	return result, nil
 }
 
-// InternalSquadControllerCreateInternalSquad invokes InternalSquadController_createInternalSquad operation.
-//
-// Create internal squad.
-//
-// POST /api/internal-squads
-func (c *Client) InternalSquadControllerCreateInternalSquad(ctx context.Context, request *CreateInternalSquadBodyDto) (InternalSquadControllerCreateInternalSquadRes, error) {
-	res, err := c.sendInternalSquadControllerCreateInternalSquad(ctx, request)
-	return res, err
-}
-
-func (c *Client) sendInternalSquadControllerCreateInternalSquad(ctx context.Context, request *CreateInternalSquadBodyDto) (res InternalSquadControllerCreateInternalSquadRes, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("InternalSquadController_createInternalSquad"),
-		semconv.HTTPRequestMethodKey.String("POST"),
-		semconv.URLTemplateKey.String("/api/internal-squads"),
-	}
-	otelAttrs = append(otelAttrs, c.cfg.Attributes...)
-
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, InternalSquadControllerCreateInternalSquadOperation,
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
-	u := uri.Clone(c.requestURL(ctx))
-	var pathParts [1]string
-	pathParts[0] = "/api/internal-squads"
-	uri.AddPathParts(u, pathParts[:]...)
-
-	stage = "EncodeRequest"
-	r, err := ht.NewRequest(ctx, "POST", u)
-	if err != nil {
-		return res, errors.Wrap(err, "create request")
-	}
-	if err := encodeInternalSquadControllerCreateInternalSquadRequest(request, r); err != nil {
-		return res, errors.Wrap(err, "encode request")
-	}
-
-	{
-		type bitset = [1]uint8
-		var satisfied bitset
-		{
-			stage = "Security:Authorization"
-			switch err := c.securityAuthorization(ctx, InternalSquadControllerCreateInternalSquadOperation, r); {
-			case err == nil: // if NO error
-				satisfied[0] |= 1 << 0
-			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
-				// Skip this security.
-			default:
-				return res, errors.Wrap(err, "security \"Authorization\"")
-			}
-		}
-
-		if ok := func() bool {
-		nextRequirement:
-			for _, requirement := range []bitset{
-				{0b00000001},
-			} {
-				for i, mask := range requirement {
-					if satisfied[i]&mask != mask {
-						continue nextRequirement
-					}
-				}
-				return true
-			}
-			return false
-		}(); !ok {
-			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
-		}
-	}
-
-	stage = "SendRequest"
-	resp, err := c.cfg.Client.Do(r)
-	if err != nil {
-		return res, errors.Wrap(err, "do request")
-	}
-	body := resp.Body
-	defer func() {
-		// Drain the body to EOF before closing, so the underlying
-		// connection can be reused by the Transport regardless of the
-		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
-		_, _ = io.Copy(io.Discard, body)
-		_ = body.Close()
-	}()
-
-	stage = "DecodeResponse"
-	result, err := decodeInternalSquadControllerCreateInternalSquadResponse(resp)
-	if err != nil {
-		return res, errors.Wrap(err, "decode response")
-	}
-
-	return result, nil
-}
-
 // InternalSquadControllerGetInternalSquads invokes InternalSquadController_getInternalSquads operation.
 //
 // Get all internal squads.
@@ -505,122 +485,6 @@ func (c *Client) sendInternalSquadControllerGetInternalSquads(ctx context.Contex
 
 	stage = "DecodeResponse"
 	result, err := decodeInternalSquadControllerGetInternalSquadsResponse(resp)
-	if err != nil {
-		return res, errors.Wrap(err, "decode response")
-	}
-
-	return result, nil
-}
-
-// InternalSquadControllerUpdateInternalSquad invokes InternalSquadController_updateInternalSquad operation.
-//
-// Update internal squad.
-//
-// PATCH /api/internal-squads
-func (c *Client) InternalSquadControllerUpdateInternalSquad(ctx context.Context, request *UpdateInternalSquadBodyDto) (InternalSquadControllerUpdateInternalSquadRes, error) {
-	res, err := c.sendInternalSquadControllerUpdateInternalSquad(ctx, request)
-	return res, err
-}
-
-func (c *Client) sendInternalSquadControllerUpdateInternalSquad(ctx context.Context, request *UpdateInternalSquadBodyDto) (res InternalSquadControllerUpdateInternalSquadRes, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("InternalSquadController_updateInternalSquad"),
-		semconv.HTTPRequestMethodKey.String("PATCH"),
-		semconv.URLTemplateKey.String("/api/internal-squads"),
-	}
-	otelAttrs = append(otelAttrs, c.cfg.Attributes...)
-
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, InternalSquadControllerUpdateInternalSquadOperation,
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
-	u := uri.Clone(c.requestURL(ctx))
-	var pathParts [1]string
-	pathParts[0] = "/api/internal-squads"
-	uri.AddPathParts(u, pathParts[:]...)
-
-	stage = "EncodeRequest"
-	r, err := ht.NewRequest(ctx, "PATCH", u)
-	if err != nil {
-		return res, errors.Wrap(err, "create request")
-	}
-	if err := encodeInternalSquadControllerUpdateInternalSquadRequest(request, r); err != nil {
-		return res, errors.Wrap(err, "encode request")
-	}
-
-	{
-		type bitset = [1]uint8
-		var satisfied bitset
-		{
-			stage = "Security:Authorization"
-			switch err := c.securityAuthorization(ctx, InternalSquadControllerUpdateInternalSquadOperation, r); {
-			case err == nil: // if NO error
-				satisfied[0] |= 1 << 0
-			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
-				// Skip this security.
-			default:
-				return res, errors.Wrap(err, "security \"Authorization\"")
-			}
-		}
-
-		if ok := func() bool {
-		nextRequirement:
-			for _, requirement := range []bitset{
-				{0b00000001},
-			} {
-				for i, mask := range requirement {
-					if satisfied[i]&mask != mask {
-						continue nextRequirement
-					}
-				}
-				return true
-			}
-			return false
-		}(); !ok {
-			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
-		}
-	}
-
-	stage = "SendRequest"
-	resp, err := c.cfg.Client.Do(r)
-	if err != nil {
-		return res, errors.Wrap(err, "do request")
-	}
-	body := resp.Body
-	defer func() {
-		// Drain the body to EOF before closing, so the underlying
-		// connection can be reused by the Transport regardless of the
-		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
-		_, _ = io.Copy(io.Discard, body)
-		_ = body.Close()
-	}()
-
-	stage = "DecodeResponse"
-	result, err := decodeInternalSquadControllerUpdateInternalSquadResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
 	}
@@ -737,137 +601,6 @@ func (c *Client) sendUsersControllerCreateUser(ctx context.Context, request *Cre
 
 	stage = "DecodeResponse"
 	result, err := decodeUsersControllerCreateUserResponse(resp)
-	if err != nil {
-		return res, errors.Wrap(err, "decode response")
-	}
-
-	return result, nil
-}
-
-// UsersControllerDeleteUser invokes UsersController_deleteUser operation.
-//
-// Delete user.
-//
-// DELETE /api/users/{userId}
-func (c *Client) UsersControllerDeleteUser(ctx context.Context, params UsersControllerDeleteUserParams) (UsersControllerDeleteUserRes, error) {
-	res, err := c.sendUsersControllerDeleteUser(ctx, params)
-	return res, err
-}
-
-func (c *Client) sendUsersControllerDeleteUser(ctx context.Context, params UsersControllerDeleteUserParams) (res UsersControllerDeleteUserRes, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("UsersController_deleteUser"),
-		semconv.HTTPRequestMethodKey.String("DELETE"),
-		semconv.URLTemplateKey.String("/api/users/{userId}"),
-	}
-	otelAttrs = append(otelAttrs, c.cfg.Attributes...)
-
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, UsersControllerDeleteUserOperation,
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
-	u := uri.Clone(c.requestURL(ctx))
-	var pathParts [2]string
-	pathParts[0] = "/api/users/"
-	{
-		// Encode "userId" parameter.
-		e := uri.NewPathEncoder(uri.PathEncoderConfig{
-			Param:   "userId",
-			Style:   uri.PathStyleSimple,
-			Explode: false,
-		})
-		if err := func() error {
-			return e.EncodeValue(conv.Int64ToString(params.UserId))
-		}(); err != nil {
-			return res, errors.Wrap(err, "encode path")
-		}
-		encoded, err := e.Result()
-		if err != nil {
-			return res, errors.Wrap(err, "encode path")
-		}
-		pathParts[1] = encoded
-	}
-	uri.AddPathParts(u, pathParts[:]...)
-
-	stage = "EncodeRequest"
-	r, err := ht.NewRequest(ctx, "DELETE", u)
-	if err != nil {
-		return res, errors.Wrap(err, "create request")
-	}
-
-	{
-		type bitset = [1]uint8
-		var satisfied bitset
-		{
-			stage = "Security:Authorization"
-			switch err := c.securityAuthorization(ctx, UsersControllerDeleteUserOperation, r); {
-			case err == nil: // if NO error
-				satisfied[0] |= 1 << 0
-			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
-				// Skip this security.
-			default:
-				return res, errors.Wrap(err, "security \"Authorization\"")
-			}
-		}
-
-		if ok := func() bool {
-		nextRequirement:
-			for _, requirement := range []bitset{
-				{0b00000001},
-			} {
-				for i, mask := range requirement {
-					if satisfied[i]&mask != mask {
-						continue nextRequirement
-					}
-				}
-				return true
-			}
-			return false
-		}(); !ok {
-			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
-		}
-	}
-
-	stage = "SendRequest"
-	resp, err := c.cfg.Client.Do(r)
-	if err != nil {
-		return res, errors.Wrap(err, "do request")
-	}
-	body := resp.Body
-	defer func() {
-		// Drain the body to EOF before closing, so the underlying
-		// connection can be reused by the Transport regardless of the
-		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
-		_, _ = io.Copy(io.Discard, body)
-		_ = body.Close()
-	}()
-
-	stage = "DecodeResponse"
-	result, err := decodeUsersControllerDeleteUserResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
 	}
@@ -1394,193 +1127,6 @@ func (c *Client) sendUsersControllerGetUserByUsername(ctx context.Context, param
 
 	stage = "DecodeResponse"
 	result, err := decodeUsersControllerGetUserByUsernameResponse(resp)
-	if err != nil {
-		return res, errors.Wrap(err, "decode response")
-	}
-
-	return result, nil
-}
-
-// UsersControllerGetUsers invokes UsersController_getUsers operation.
-//
-// Please note that the filters here are primarily intended for use by the frontend and rely on
-// expensive operators such as LIKE under the hood. Misusing these filters may negatively impact the
-// performance of your database.
-//
-// GET /api/users
-func (c *Client) UsersControllerGetUsers(ctx context.Context, params UsersControllerGetUsersParams) (UsersControllerGetUsersRes, error) {
-	res, err := c.sendUsersControllerGetUsers(ctx, params)
-	return res, err
-}
-
-func (c *Client) sendUsersControllerGetUsers(ctx context.Context, params UsersControllerGetUsersParams) (res UsersControllerGetUsersRes, err error) {
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("UsersController_getUsers"),
-		semconv.HTTPRequestMethodKey.String("GET"),
-		semconv.URLTemplateKey.String("/api/users"),
-	}
-	otelAttrs = append(otelAttrs, c.cfg.Attributes...)
-
-	// Run stopwatch.
-	startTime := time.Now()
-	defer func() {
-		// Use floating point division here for higher precision (instead of Millisecond method).
-		elapsedDuration := time.Since(startTime)
-		c.duration.Record(ctx, float64(elapsedDuration)/float64(time.Millisecond), metric.WithAttributes(otelAttrs...))
-	}()
-
-	// Increment request counter.
-	c.requests.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-
-	// Start a span for this request.
-	ctx, span := c.cfg.Tracer.Start(ctx, UsersControllerGetUsersOperation,
-		trace.WithAttributes(otelAttrs...),
-		clientSpanKind,
-	)
-	// Track stage for error reporting.
-	var stage string
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, stage)
-			c.errors.Add(ctx, 1, metric.WithAttributes(otelAttrs...))
-		}
-		span.End()
-	}()
-
-	stage = "BuildURL"
-	u := uri.Clone(c.requestURL(ctx))
-	var pathParts [1]string
-	pathParts[0] = "/api/users"
-	uri.AddPathParts(u, pathParts[:]...)
-
-	stage = "EncodeQueryParams"
-	q := uri.NewQueryEncoder()
-	{
-		// Encode "start" parameter.
-		cfg := uri.QueryParameterEncodingConfig{
-			Name:    "start",
-			Style:   uri.QueryStyleForm,
-			Explode: true,
-		}
-
-		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
-			if val, ok := params.Start.Get(); ok {
-				return e.EncodeValue(conv.Float64ToString(val))
-			}
-			return nil
-		}); err != nil {
-			return res, errors.Wrap(err, "encode query")
-		}
-	}
-	{
-		// Encode "size" parameter.
-		cfg := uri.QueryParameterEncodingConfig{
-			Name:    "size",
-			Style:   uri.QueryStyleForm,
-			Explode: true,
-		}
-
-		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
-			if val, ok := params.Size.Get(); ok {
-				return e.EncodeValue(conv.Float64ToString(val))
-			}
-			return nil
-		}); err != nil {
-			return res, errors.Wrap(err, "encode query")
-		}
-	}
-	{
-		// Encode "filterModes" parameter.
-		cfg := uri.QueryParameterEncodingConfig{
-			Name:    "filterModes",
-			Style:   uri.QueryStyleDeepObject,
-			Explode: true,
-		}
-
-		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
-			if val, ok := params.FilterModes.Get(); ok {
-				return val.EncodeURI(e)
-			}
-			return nil
-		}); err != nil {
-			return res, errors.Wrap(err, "encode query")
-		}
-	}
-	{
-		// Encode "globalFilterMode" parameter.
-		cfg := uri.QueryParameterEncodingConfig{
-			Name:    "globalFilterMode",
-			Style:   uri.QueryStyleForm,
-			Explode: true,
-		}
-
-		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
-			if val, ok := params.GlobalFilterMode.Get(); ok {
-				return e.EncodeValue(conv.StringToString(val))
-			}
-			return nil
-		}); err != nil {
-			return res, errors.Wrap(err, "encode query")
-		}
-	}
-	u.RawQuery = q.Values().Encode()
-
-	stage = "EncodeRequest"
-	r, err := ht.NewRequest(ctx, "GET", u)
-	if err != nil {
-		return res, errors.Wrap(err, "create request")
-	}
-
-	{
-		type bitset = [1]uint8
-		var satisfied bitset
-		{
-			stage = "Security:Authorization"
-			switch err := c.securityAuthorization(ctx, UsersControllerGetUsersOperation, r); {
-			case err == nil: // if NO error
-				satisfied[0] |= 1 << 0
-			case errors.Is(err, ogenerrors.ErrSkipClientSecurity):
-				// Skip this security.
-			default:
-				return res, errors.Wrap(err, "security \"Authorization\"")
-			}
-		}
-
-		if ok := func() bool {
-		nextRequirement:
-			for _, requirement := range []bitset{
-				{0b00000001},
-			} {
-				for i, mask := range requirement {
-					if satisfied[i]&mask != mask {
-						continue nextRequirement
-					}
-				}
-				return true
-			}
-			return false
-		}(); !ok {
-			return res, ogenerrors.ErrSecurityRequirementIsNotSatisfied
-		}
-	}
-
-	stage = "SendRequest"
-	resp, err := c.cfg.Client.Do(r)
-	if err != nil {
-		return res, errors.Wrap(err, "do request")
-	}
-	body := resp.Body
-	defer func() {
-		// Drain the body to EOF before closing, so the underlying
-		// connection can be reused by the Transport regardless of the
-		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
-		_, _ = io.Copy(io.Discard, body)
-		_ = body.Close()
-	}()
-
-	stage = "DecodeResponse"
-	result, err := decodeUsersControllerGetUsersResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
 	}

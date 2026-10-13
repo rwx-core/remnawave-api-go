@@ -11,33 +11,32 @@ import (
 )
 
 var (
-	rn2AllowedHeaders = map[string]string{
-		"GET": "Authorization",
+	rn1AllowedHeaders = map[string]string{
+		"POST": "Authorization,Content-Type",
 	}
-	rn4AllowedHeaders = map[string]string{
-		"GET":   "Authorization",
-		"PATCH": "Authorization,Content-Type",
-		"POST":  "Authorization,Content-Type",
+	rn3AllowedHeaders = map[string]string{
+		"GET": "Authorization",
 	}
 	rn5AllowedHeaders = map[string]string{
-		"GET":   "Authorization",
+		"GET": "Authorization",
+	}
+	rn6AllowedHeaders = map[string]string{
 		"PATCH": "Authorization,Content-Type",
 		"POST":  "Authorization,Content-Type",
 	}
-	rn12AllowedHeaders = map[string]string{
+	rn13AllowedHeaders = map[string]string{
 		"GET": "Authorization",
 	}
-	rn7AllowedHeaders = map[string]string{
-		"DELETE": "Authorization",
-		"GET":    "Authorization",
-	}
 	rn8AllowedHeaders = map[string]string{
+		"GET": "Authorization",
+	}
+	rn9AllowedHeaders = map[string]string{
 		"POST": "Authorization",
 	}
-	rn10AllowedHeaders = map[string]string{
+	rn11AllowedHeaders = map[string]string{
 		"POST": "Authorization",
 	}
-	rn13AllowedHeaders = map[string]string{
+	rn14AllowedHeaders = map[string]string{
 		"POST": "Authorization,Content-Type",
 	}
 )
@@ -101,6 +100,37 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 					break
 				}
 
+				if len(elem) == 0 {
+					break
+				}
+				switch elem[0] {
+				case 'd': // Prefix: "delete"
+					origElem := elem
+					if l := len("delete"); len(elem) >= l && elem[0:l] == "delete" {
+						elem = elem[l:]
+					} else {
+						break
+					}
+
+					if len(elem) == 0 {
+						// Leaf node.
+						switch r.Method {
+						case "POST":
+							s.handleHwidUserDevicesControllerDeleteUserHwidDeviceRequest([0]string{}, elemIsEscaped, w, r)
+						default:
+							s.notAllowed(w, r, notAllowedParams{
+								allowedMethods: "POST",
+								allowedHeaders: rn1AllowedHeaders,
+								acceptPost:     "application/json",
+								acceptPatch:    "",
+							})
+						}
+
+						return
+					}
+
+					elem = origElem
+				}
 				// Param: "userId"
 				// Leaf parameter, slashes are prohibited
 				idx := strings.IndexByte(elem, '/')
@@ -120,7 +150,7 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 					default:
 						s.notAllowed(w, r, notAllowedParams{
 							allowedMethods: "GET",
-							allowedHeaders: rn2AllowedHeaders,
+							allowedHeaders: rn3AllowedHeaders,
 							acceptPost:     "",
 							acceptPatch:    "",
 						})
@@ -142,16 +172,12 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 					switch r.Method {
 					case "GET":
 						s.handleInternalSquadControllerGetInternalSquadsRequest([0]string{}, elemIsEscaped, w, r)
-					case "PATCH":
-						s.handleInternalSquadControllerUpdateInternalSquadRequest([0]string{}, elemIsEscaped, w, r)
-					case "POST":
-						s.handleInternalSquadControllerCreateInternalSquadRequest([0]string{}, elemIsEscaped, w, r)
 					default:
 						s.notAllowed(w, r, notAllowedParams{
-							allowedMethods: "GET,PATCH,POST",
-							allowedHeaders: rn4AllowedHeaders,
-							acceptPost:     "application/json",
-							acceptPatch:    "application/json",
+							allowedMethods: "GET",
+							allowedHeaders: rn5AllowedHeaders,
+							acceptPost:     "",
+							acceptPatch:    "",
 						})
 					}
 
@@ -168,16 +194,14 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 				if len(elem) == 0 {
 					switch r.Method {
-					case "GET":
-						s.handleUsersControllerGetUsersRequest([0]string{}, elemIsEscaped, w, r)
 					case "PATCH":
 						s.handleUsersControllerUpdateUserRequest([0]string{}, elemIsEscaped, w, r)
 					case "POST":
 						s.handleUsersControllerCreateUserRequest([0]string{}, elemIsEscaped, w, r)
 					default:
 						s.notAllowed(w, r, notAllowedParams{
-							allowedMethods: "GET,PATCH,POST",
-							allowedHeaders: rn5AllowedHeaders,
+							allowedMethods: "PATCH,POST",
+							allowedHeaders: rn6AllowedHeaders,
 							acceptPost:     "application/json",
 							acceptPatch:    "application/json",
 						})
@@ -225,7 +249,7 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 							default:
 								s.notAllowed(w, r, notAllowedParams{
 									allowedMethods: "GET",
-									allowedHeaders: rn12AllowedHeaders,
+									allowedHeaders: rn13AllowedHeaders,
 									acceptPost:     "",
 									acceptPatch:    "",
 								})
@@ -247,18 +271,14 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 					if len(elem) == 0 {
 						switch r.Method {
-						case "DELETE":
-							s.handleUsersControllerDeleteUserRequest([1]string{
-								args[0],
-							}, elemIsEscaped, w, r)
 						case "GET":
 							s.handleUsersControllerGetUserByIdRequest([1]string{
 								args[0],
 							}, elemIsEscaped, w, r)
 						default:
 							s.notAllowed(w, r, notAllowedParams{
-								allowedMethods: "DELETE,GET",
-								allowedHeaders: rn7AllowedHeaders,
+								allowedMethods: "GET",
+								allowedHeaders: rn8AllowedHeaders,
 								acceptPost:     "",
 								acceptPatch:    "",
 							})
@@ -297,7 +317,7 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 								default:
 									s.notAllowed(w, r, notAllowedParams{
 										allowedMethods: "POST",
-										allowedHeaders: rn8AllowedHeaders,
+										allowedHeaders: rn9AllowedHeaders,
 										acceptPost:     "",
 										acceptPatch:    "",
 									})
@@ -324,7 +344,7 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 								default:
 									s.notAllowed(w, r, notAllowedParams{
 										allowedMethods: "POST",
-										allowedHeaders: rn10AllowedHeaders,
+										allowedHeaders: rn11AllowedHeaders,
 										acceptPost:     "",
 										acceptPatch:    "",
 									})
@@ -351,7 +371,7 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 								default:
 									s.notAllowed(w, r, notAllowedParams{
 										allowedMethods: "POST",
-										allowedHeaders: rn13AllowedHeaders,
+										allowedHeaders: rn14AllowedHeaders,
 										acceptPost:     "application/json",
 										acceptPatch:    "",
 									})
@@ -474,6 +494,37 @@ func (s *Server) FindPath(method string, u *url.URL) (r Route, _ bool) {
 					break
 				}
 
+				if len(elem) == 0 {
+					break
+				}
+				switch elem[0] {
+				case 'd': // Prefix: "delete"
+					origElem := elem
+					if l := len("delete"); len(elem) >= l && elem[0:l] == "delete" {
+						elem = elem[l:]
+					} else {
+						break
+					}
+
+					if len(elem) == 0 {
+						// Leaf node.
+						switch method {
+						case "POST":
+							r.name = HwidUserDevicesControllerDeleteUserHwidDeviceOperation
+							r.summary = "Delete a user HWID device"
+							r.operationID = "HwidUserDevicesController_deleteUserHwidDevice"
+							r.operationGroup = ""
+							r.pathPattern = "/api/hwid/devices/delete"
+							r.args = args
+							r.count = 0
+							return r, true
+						default:
+							return
+						}
+					}
+
+					elem = origElem
+				}
 				// Param: "userId"
 				// Leaf parameter, slashes are prohibited
 				idx := strings.IndexByte(elem, '/')
@@ -520,24 +571,6 @@ func (s *Server) FindPath(method string, u *url.URL) (r Route, _ bool) {
 						r.args = args
 						r.count = 0
 						return r, true
-					case "PATCH":
-						r.name = InternalSquadControllerUpdateInternalSquadOperation
-						r.summary = "Update internal squad"
-						r.operationID = "InternalSquadController_updateInternalSquad"
-						r.operationGroup = ""
-						r.pathPattern = "/api/internal-squads"
-						r.args = args
-						r.count = 0
-						return r, true
-					case "POST":
-						r.name = InternalSquadControllerCreateInternalSquadOperation
-						r.summary = "Create internal squad"
-						r.operationID = "InternalSquadController_createInternalSquad"
-						r.operationGroup = ""
-						r.pathPattern = "/api/internal-squads"
-						r.args = args
-						r.count = 0
-						return r, true
 					default:
 						return
 					}
@@ -553,15 +586,6 @@ func (s *Server) FindPath(method string, u *url.URL) (r Route, _ bool) {
 
 				if len(elem) == 0 {
 					switch method {
-					case "GET":
-						r.name = UsersControllerGetUsersOperation
-						r.summary = "Get all users using offset-based pagination"
-						r.operationID = "UsersController_getUsers"
-						r.operationGroup = ""
-						r.pathPattern = "/api/users"
-						r.args = args
-						r.count = 0
-						return r, true
 					case "PATCH":
 						r.name = UsersControllerUpdateUserOperation
 						r.summary = "Update a user"
@@ -644,15 +668,6 @@ func (s *Server) FindPath(method string, u *url.URL) (r Route, _ bool) {
 
 					if len(elem) == 0 {
 						switch method {
-						case "DELETE":
-							r.name = UsersControllerDeleteUserOperation
-							r.summary = "Delete user"
-							r.operationID = "UsersController_deleteUser"
-							r.operationGroup = ""
-							r.pathPattern = "/api/users/{userId}"
-							r.args = args
-							r.count = 1
-							return r, true
 						case "GET":
 							r.name = UsersControllerGetUserByIdOperation
 							r.summary = "Get user by ID"

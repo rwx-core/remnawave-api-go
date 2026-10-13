@@ -11,11 +11,23 @@ import (
 	"go.opentelemetry.io/otel/trace"
 )
 
-func encodeHwidUserDevicesControllerGetUserHwidDevicesResponse(response HwidUserDevicesControllerGetUserHwidDevicesRes, w http.ResponseWriter, span trace.Span) error {
+func encodeHwidUserDevicesControllerDeleteUserHwidDeviceResponse(response HwidUserDevicesControllerDeleteUserHwidDeviceRes, w http.ResponseWriter, span trace.Span) error {
 	switch response := response.(type) {
-	case *GetUserHwidDevicesResponseDto:
+	case *DeleteUserHwidDeviceResponseDto:
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
 		w.WriteHeader(200)
+
+		e := new(jx.Encoder)
+		response.Encode(e)
+		if _, err := e.WriteTo(w); err != nil {
+			return errors.Wrap(err, "write")
+		}
+
+		return nil
+
+	case *RwxUnifiedRemnawaveBadRequestErrorDto:
+		w.Header().Set("Content-Type", "application/json; charset=utf-8")
+		w.WriteHeader(400)
 
 		e := new(jx.Encoder)
 		response.Encode(e)
@@ -55,11 +67,23 @@ func encodeHwidUserDevicesControllerGetUserHwidDevicesResponse(response HwidUser
 	}
 }
 
-func encodeInternalSquadControllerCreateInternalSquadResponse(response InternalSquadControllerCreateInternalSquadRes, w http.ResponseWriter, span trace.Span) error {
+func encodeHwidUserDevicesControllerGetUserHwidDevicesResponse(response HwidUserDevicesControllerGetUserHwidDevicesRes, w http.ResponseWriter, span trace.Span) error {
 	switch response := response.(type) {
-	case *CreateInternalSquadResponseDto:
+	case *GetUserHwidDevicesResponseDto:
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
-		w.WriteHeader(201)
+		w.WriteHeader(200)
+
+		e := new(jx.Encoder)
+		response.Encode(e)
+		if _, err := e.WriteTo(w); err != nil {
+			return errors.Wrap(err, "write")
+		}
+
+		return nil
+
+	case *RwxUnifiedRemnawaveBadRequestErrorDto:
+		w.Header().Set("Content-Type", "application/json; charset=utf-8")
+		w.WriteHeader(400)
 
 		e := new(jx.Encoder)
 		response.Encode(e)
@@ -78,11 +102,6 @@ func encodeInternalSquadControllerCreateInternalSquadResponse(response InternalS
 		if _, err := e.WriteTo(w); err != nil {
 			return errors.Wrap(err, "write")
 		}
-
-		return nil
-
-	case *InternalSquadControllerCreateInternalSquadConflict:
-		w.WriteHeader(409)
 
 		return nil
 
@@ -118,41 +137,9 @@ func encodeInternalSquadControllerGetInternalSquadsResponse(response InternalSqu
 
 		return nil
 
-	case *RemnawaveNotFoundErrorDto:
+	case *RwxUnifiedRemnawaveBadRequestErrorDto:
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
-		w.WriteHeader(404)
-
-		e := new(jx.Encoder)
-		response.Encode(e)
-		if _, err := e.WriteTo(w); err != nil {
-			return errors.Wrap(err, "write")
-		}
-
-		return nil
-
-	case *RemnawaveInternalServerErrorDto:
-		w.Header().Set("Content-Type", "application/json; charset=utf-8")
-		w.WriteHeader(500)
-		span.SetStatus(codes.Error, http.StatusText(500))
-
-		e := new(jx.Encoder)
-		response.Encode(e)
-		if _, err := e.WriteTo(w); err != nil {
-			return errors.Wrap(err, "write")
-		}
-
-		return nil
-
-	default:
-		return errors.Errorf("unexpected response type: %T", response)
-	}
-}
-
-func encodeInternalSquadControllerUpdateInternalSquadResponse(response InternalSquadControllerUpdateInternalSquadRes, w http.ResponseWriter, span trace.Span) error {
-	switch response := response.(type) {
-	case *UpdateInternalSquadResponseDto:
-		w.Header().Set("Content-Type", "application/json; charset=utf-8")
-		w.WriteHeader(200)
+		w.WriteHeader(400)
 
 		e := new(jx.Encoder)
 		response.Encode(e)
@@ -171,11 +158,6 @@ func encodeInternalSquadControllerUpdateInternalSquadResponse(response InternalS
 		if _, err := e.WriteTo(w); err != nil {
 			return errors.Wrap(err, "write")
 		}
-
-		return nil
-
-	case *InternalSquadControllerUpdateInternalSquadConflict:
-		w.WriteHeader(409)
 
 		return nil
 
@@ -211,40 +193,15 @@ func encodeUsersControllerCreateUserResponse(response UsersControllerCreateUserR
 
 		return nil
 
-	case *RemnawaveNotFoundErrorDto:
+	case *RwxUnifiedRemnawaveBadRequestErrorDto:
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
-		w.WriteHeader(404)
+		w.WriteHeader(400)
 
 		e := new(jx.Encoder)
 		response.Encode(e)
 		if _, err := e.WriteTo(w); err != nil {
 			return errors.Wrap(err, "write")
 		}
-
-		return nil
-
-	case *RemnawaveInternalServerErrorDto:
-		w.Header().Set("Content-Type", "application/json; charset=utf-8")
-		w.WriteHeader(500)
-		span.SetStatus(codes.Error, http.StatusText(500))
-
-		e := new(jx.Encoder)
-		response.Encode(e)
-		if _, err := e.WriteTo(w); err != nil {
-			return errors.Wrap(err, "write")
-		}
-
-		return nil
-
-	default:
-		return errors.Errorf("unexpected response type: %T", response)
-	}
-}
-
-func encodeUsersControllerDeleteUserResponse(response UsersControllerDeleteUserRes, w http.ResponseWriter, span trace.Span) error {
-	switch response := response.(type) {
-	case *UsersControllerDeleteUserNoContent:
-		w.WriteHeader(204)
 
 		return nil
 
@@ -283,6 +240,18 @@ func encodeUsersControllerDisableUserResponse(response UsersControllerDisableUse
 	case *UserResponseDto:
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
 		w.WriteHeader(200)
+
+		e := new(jx.Encoder)
+		response.Encode(e)
+		if _, err := e.WriteTo(w); err != nil {
+			return errors.Wrap(err, "write")
+		}
+
+		return nil
+
+	case *RwxUnifiedRemnawaveBadRequestErrorDto:
+		w.Header().Set("Content-Type", "application/json; charset=utf-8")
+		w.WriteHeader(400)
 
 		e := new(jx.Encoder)
 		response.Encode(e)
@@ -336,6 +305,18 @@ func encodeUsersControllerEnableUserResponse(response UsersControllerEnableUserR
 
 		return nil
 
+	case *RwxUnifiedRemnawaveBadRequestErrorDto:
+		w.Header().Set("Content-Type", "application/json; charset=utf-8")
+		w.WriteHeader(400)
+
+		e := new(jx.Encoder)
+		response.Encode(e)
+		if _, err := e.WriteTo(w); err != nil {
+			return errors.Wrap(err, "write")
+		}
+
+		return nil
+
 	case *RemnawaveNotFoundErrorDto:
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
 		w.WriteHeader(404)
@@ -371,6 +352,18 @@ func encodeUsersControllerGetUserByIdResponse(response UsersControllerGetUserByI
 	case *UserResponseDto:
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
 		w.WriteHeader(200)
+
+		e := new(jx.Encoder)
+		response.Encode(e)
+		if _, err := e.WriteTo(w); err != nil {
+			return errors.Wrap(err, "write")
+		}
+
+		return nil
+
+	case *RwxUnifiedRemnawaveBadRequestErrorDto:
+		w.Header().Set("Content-Type", "application/json; charset=utf-8")
+		w.WriteHeader(400)
 
 		e := new(jx.Encoder)
 		response.Encode(e)
@@ -424,41 +417,9 @@ func encodeUsersControllerGetUserByUsernameResponse(response UsersControllerGetU
 
 		return nil
 
-	case *RemnawaveNotFoundErrorDto:
+	case *RwxUnifiedRemnawaveBadRequestErrorDto:
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
-		w.WriteHeader(404)
-
-		e := new(jx.Encoder)
-		response.Encode(e)
-		if _, err := e.WriteTo(w); err != nil {
-			return errors.Wrap(err, "write")
-		}
-
-		return nil
-
-	case *RemnawaveInternalServerErrorDto:
-		w.Header().Set("Content-Type", "application/json; charset=utf-8")
-		w.WriteHeader(500)
-		span.SetStatus(codes.Error, http.StatusText(500))
-
-		e := new(jx.Encoder)
-		response.Encode(e)
-		if _, err := e.WriteTo(w); err != nil {
-			return errors.Wrap(err, "write")
-		}
-
-		return nil
-
-	default:
-		return errors.Errorf("unexpected response type: %T", response)
-	}
-}
-
-func encodeUsersControllerGetUsersResponse(response UsersControllerGetUsersRes, w http.ResponseWriter, span trace.Span) error {
-	switch response := response.(type) {
-	case *GetUsersResponseDto:
-		w.Header().Set("Content-Type", "application/json; charset=utf-8")
-		w.WriteHeader(200)
+		w.WriteHeader(400)
 
 		e := new(jx.Encoder)
 		response.Encode(e)
@@ -512,6 +473,18 @@ func encodeUsersControllerRevokeUserSubscriptionResponse(response UsersControlle
 
 		return nil
 
+	case *RwxUnifiedRemnawaveBadRequestErrorDto:
+		w.Header().Set("Content-Type", "application/json; charset=utf-8")
+		w.WriteHeader(400)
+
+		e := new(jx.Encoder)
+		response.Encode(e)
+		if _, err := e.WriteTo(w); err != nil {
+			return errors.Wrap(err, "write")
+		}
+
+		return nil
+
 	case *RemnawaveNotFoundErrorDto:
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
 		w.WriteHeader(404)
@@ -547,6 +520,18 @@ func encodeUsersControllerUpdateUserResponse(response UsersControllerUpdateUserR
 	case *UserResponseDto:
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
 		w.WriteHeader(200)
+
+		e := new(jx.Encoder)
+		response.Encode(e)
+		if _, err := e.WriteTo(w); err != nil {
+			return errors.Wrap(err, "write")
+		}
+
+		return nil
+
+	case *RwxUnifiedRemnawaveBadRequestErrorDto:
+		w.Header().Set("Content-Type", "application/json; charset=utf-8")
+		w.WriteHeader(400)
 
 		e := new(jx.Encoder)
 		response.Encode(e)

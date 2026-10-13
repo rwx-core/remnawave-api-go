@@ -35,256 +35,6 @@ func (s *Authorization) SetRoles(val []string) {
 	s.Roles = val
 }
 
-// Ref: #/components/schemas/CreateInternalSquadBodyDto
-type CreateInternalSquadBodyDto struct {
-	Name     string      `json:"name"`
-	Inbounds []uuid.UUID `json:"inbounds"`
-}
-
-// GetName returns the value of Name.
-func (s *CreateInternalSquadBodyDto) GetName() string {
-	return s.Name
-}
-
-// GetInbounds returns the value of Inbounds.
-func (s *CreateInternalSquadBodyDto) GetInbounds() []uuid.UUID {
-	return s.Inbounds
-}
-
-// SetName sets the value of Name.
-func (s *CreateInternalSquadBodyDto) SetName(val string) {
-	s.Name = val
-}
-
-// SetInbounds sets the value of Inbounds.
-func (s *CreateInternalSquadBodyDto) SetInbounds(val []uuid.UUID) {
-	s.Inbounds = val
-}
-
-// Ref: #/components/schemas/CreateInternalSquadResponseDto
-type CreateInternalSquadResponseDto struct {
-	Response CreateInternalSquadResponseDtoResponse `json:"response"`
-}
-
-// GetResponse returns the value of Response.
-func (s *CreateInternalSquadResponseDto) GetResponse() CreateInternalSquadResponseDtoResponse {
-	return s.Response
-}
-
-// SetResponse sets the value of Response.
-func (s *CreateInternalSquadResponseDto) SetResponse(val CreateInternalSquadResponseDtoResponse) {
-	s.Response = val
-}
-
-func (*CreateInternalSquadResponseDto) internalSquadControllerCreateInternalSquadRes() {}
-
-type CreateInternalSquadResponseDtoResponse struct {
-	UUID         uuid.UUID                                            `json:"uuid"`
-	ViewPosition int                                                  `json:"viewPosition"`
-	Name         string                                               `json:"name"`
-	Tags         []string                                             `json:"tags"`
-	Info         CreateInternalSquadResponseDtoResponseInfo           `json:"info"`
-	Inbounds     []CreateInternalSquadResponseDtoResponseInboundsItem `json:"inbounds"`
-	CreatedAt    time.Time                                            `json:"createdAt"`
-	UpdatedAt    time.Time                                            `json:"updatedAt"`
-}
-
-// GetUUID returns the value of UUID.
-func (s *CreateInternalSquadResponseDtoResponse) GetUUID() uuid.UUID {
-	return s.UUID
-}
-
-// GetViewPosition returns the value of ViewPosition.
-func (s *CreateInternalSquadResponseDtoResponse) GetViewPosition() int {
-	return s.ViewPosition
-}
-
-// GetName returns the value of Name.
-func (s *CreateInternalSquadResponseDtoResponse) GetName() string {
-	return s.Name
-}
-
-// GetTags returns the value of Tags.
-func (s *CreateInternalSquadResponseDtoResponse) GetTags() []string {
-	return s.Tags
-}
-
-// GetInfo returns the value of Info.
-func (s *CreateInternalSquadResponseDtoResponse) GetInfo() CreateInternalSquadResponseDtoResponseInfo {
-	return s.Info
-}
-
-// GetInbounds returns the value of Inbounds.
-func (s *CreateInternalSquadResponseDtoResponse) GetInbounds() []CreateInternalSquadResponseDtoResponseInboundsItem {
-	return s.Inbounds
-}
-
-// GetCreatedAt returns the value of CreatedAt.
-func (s *CreateInternalSquadResponseDtoResponse) GetCreatedAt() time.Time {
-	return s.CreatedAt
-}
-
-// GetUpdatedAt returns the value of UpdatedAt.
-func (s *CreateInternalSquadResponseDtoResponse) GetUpdatedAt() time.Time {
-	return s.UpdatedAt
-}
-
-// SetUUID sets the value of UUID.
-func (s *CreateInternalSquadResponseDtoResponse) SetUUID(val uuid.UUID) {
-	s.UUID = val
-}
-
-// SetViewPosition sets the value of ViewPosition.
-func (s *CreateInternalSquadResponseDtoResponse) SetViewPosition(val int) {
-	s.ViewPosition = val
-}
-
-// SetName sets the value of Name.
-func (s *CreateInternalSquadResponseDtoResponse) SetName(val string) {
-	s.Name = val
-}
-
-// SetTags sets the value of Tags.
-func (s *CreateInternalSquadResponseDtoResponse) SetTags(val []string) {
-	s.Tags = val
-}
-
-// SetInfo sets the value of Info.
-func (s *CreateInternalSquadResponseDtoResponse) SetInfo(val CreateInternalSquadResponseDtoResponseInfo) {
-	s.Info = val
-}
-
-// SetInbounds sets the value of Inbounds.
-func (s *CreateInternalSquadResponseDtoResponse) SetInbounds(val []CreateInternalSquadResponseDtoResponseInboundsItem) {
-	s.Inbounds = val
-}
-
-// SetCreatedAt sets the value of CreatedAt.
-func (s *CreateInternalSquadResponseDtoResponse) SetCreatedAt(val time.Time) {
-	s.CreatedAt = val
-}
-
-// SetUpdatedAt sets the value of UpdatedAt.
-func (s *CreateInternalSquadResponseDtoResponse) SetUpdatedAt(val time.Time) {
-	s.UpdatedAt = val
-}
-
-type CreateInternalSquadResponseDtoResponseInboundsItem struct {
-	UUID        uuid.UUID  `json:"uuid"`
-	ProfileUuid uuid.UUID  `json:"profileUuid"`
-	Tag         string     `json:"tag"`
-	Type        string     `json:"type"`
-	Network     NilString  `json:"network"`
-	Security    NilString  `json:"security"`
-	Port        NilFloat64 `json:"port"`
-	RawInbound  jx.Raw     `json:"rawInbound"`
-}
-
-// GetUUID returns the value of UUID.
-func (s *CreateInternalSquadResponseDtoResponseInboundsItem) GetUUID() uuid.UUID {
-	return s.UUID
-}
-
-// GetProfileUuid returns the value of ProfileUuid.
-func (s *CreateInternalSquadResponseDtoResponseInboundsItem) GetProfileUuid() uuid.UUID {
-	return s.ProfileUuid
-}
-
-// GetTag returns the value of Tag.
-func (s *CreateInternalSquadResponseDtoResponseInboundsItem) GetTag() string {
-	return s.Tag
-}
-
-// GetType returns the value of Type.
-func (s *CreateInternalSquadResponseDtoResponseInboundsItem) GetType() string {
-	return s.Type
-}
-
-// GetNetwork returns the value of Network.
-func (s *CreateInternalSquadResponseDtoResponseInboundsItem) GetNetwork() NilString {
-	return s.Network
-}
-
-// GetSecurity returns the value of Security.
-func (s *CreateInternalSquadResponseDtoResponseInboundsItem) GetSecurity() NilString {
-	return s.Security
-}
-
-// GetPort returns the value of Port.
-func (s *CreateInternalSquadResponseDtoResponseInboundsItem) GetPort() NilFloat64 {
-	return s.Port
-}
-
-// GetRawInbound returns the value of RawInbound.
-func (s *CreateInternalSquadResponseDtoResponseInboundsItem) GetRawInbound() jx.Raw {
-	return s.RawInbound
-}
-
-// SetUUID sets the value of UUID.
-func (s *CreateInternalSquadResponseDtoResponseInboundsItem) SetUUID(val uuid.UUID) {
-	s.UUID = val
-}
-
-// SetProfileUuid sets the value of ProfileUuid.
-func (s *CreateInternalSquadResponseDtoResponseInboundsItem) SetProfileUuid(val uuid.UUID) {
-	s.ProfileUuid = val
-}
-
-// SetTag sets the value of Tag.
-func (s *CreateInternalSquadResponseDtoResponseInboundsItem) SetTag(val string) {
-	s.Tag = val
-}
-
-// SetType sets the value of Type.
-func (s *CreateInternalSquadResponseDtoResponseInboundsItem) SetType(val string) {
-	s.Type = val
-}
-
-// SetNetwork sets the value of Network.
-func (s *CreateInternalSquadResponseDtoResponseInboundsItem) SetNetwork(val NilString) {
-	s.Network = val
-}
-
-// SetSecurity sets the value of Security.
-func (s *CreateInternalSquadResponseDtoResponseInboundsItem) SetSecurity(val NilString) {
-	s.Security = val
-}
-
-// SetPort sets the value of Port.
-func (s *CreateInternalSquadResponseDtoResponseInboundsItem) SetPort(val NilFloat64) {
-	s.Port = val
-}
-
-// SetRawInbound sets the value of RawInbound.
-func (s *CreateInternalSquadResponseDtoResponseInboundsItem) SetRawInbound(val jx.Raw) {
-	s.RawInbound = val
-}
-
-type CreateInternalSquadResponseDtoResponseInfo struct {
-	MembersCount  float64 `json:"membersCount"`
-	InboundsCount float64 `json:"inboundsCount"`
-}
-
-// GetMembersCount returns the value of MembersCount.
-func (s *CreateInternalSquadResponseDtoResponseInfo) GetMembersCount() float64 {
-	return s.MembersCount
-}
-
-// GetInboundsCount returns the value of InboundsCount.
-func (s *CreateInternalSquadResponseDtoResponseInfo) GetInboundsCount() float64 {
-	return s.InboundsCount
-}
-
-// SetMembersCount sets the value of MembersCount.
-func (s *CreateInternalSquadResponseDtoResponseInfo) SetMembersCount(val float64) {
-	s.MembersCount = val
-}
-
-// SetInboundsCount sets the value of InboundsCount.
-func (s *CreateInternalSquadResponseDtoResponseInfo) SetInboundsCount(val float64) {
-	s.InboundsCount = val
-}
-
 // Ref: #/components/schemas/CreateUserBodyDto
 type CreateUserBodyDto struct {
 	// Unique username for the user. Required. Must be 3-36 characters long and contain only letters,
@@ -624,6 +374,176 @@ func (s *CreateUserBodyDtoTrafficLimitStrategy) UnmarshalText(data []byte) error
 	default:
 		return errors.Errorf("invalid value: %q", data)
 	}
+}
+
+// Ref: #/components/schemas/DeleteUserHwidDeviceBodyDto
+type DeleteUserHwidDeviceBodyDto struct {
+	UserId float64 `json:"userId"`
+	Hwid   string  `json:"hwid"`
+}
+
+// GetUserId returns the value of UserId.
+func (s *DeleteUserHwidDeviceBodyDto) GetUserId() float64 {
+	return s.UserId
+}
+
+// GetHwid returns the value of Hwid.
+func (s *DeleteUserHwidDeviceBodyDto) GetHwid() string {
+	return s.Hwid
+}
+
+// SetUserId sets the value of UserId.
+func (s *DeleteUserHwidDeviceBodyDto) SetUserId(val float64) {
+	s.UserId = val
+}
+
+// SetHwid sets the value of Hwid.
+func (s *DeleteUserHwidDeviceBodyDto) SetHwid(val string) {
+	s.Hwid = val
+}
+
+// Ref: #/components/schemas/DeleteUserHwidDeviceResponseDto
+type DeleteUserHwidDeviceResponseDto struct {
+	Response DeleteUserHwidDeviceResponseDtoResponse `json:"response"`
+}
+
+// GetResponse returns the value of Response.
+func (s *DeleteUserHwidDeviceResponseDto) GetResponse() DeleteUserHwidDeviceResponseDtoResponse {
+	return s.Response
+}
+
+// SetResponse sets the value of Response.
+func (s *DeleteUserHwidDeviceResponseDto) SetResponse(val DeleteUserHwidDeviceResponseDtoResponse) {
+	s.Response = val
+}
+
+func (*DeleteUserHwidDeviceResponseDto) hwidUserDevicesControllerDeleteUserHwidDeviceRes() {}
+
+type DeleteUserHwidDeviceResponseDtoResponse struct {
+	Total   float64                                              `json:"total"`
+	Devices []DeleteUserHwidDeviceResponseDtoResponseDevicesItem `json:"devices"`
+}
+
+// GetTotal returns the value of Total.
+func (s *DeleteUserHwidDeviceResponseDtoResponse) GetTotal() float64 {
+	return s.Total
+}
+
+// GetDevices returns the value of Devices.
+func (s *DeleteUserHwidDeviceResponseDtoResponse) GetDevices() []DeleteUserHwidDeviceResponseDtoResponseDevicesItem {
+	return s.Devices
+}
+
+// SetTotal sets the value of Total.
+func (s *DeleteUserHwidDeviceResponseDtoResponse) SetTotal(val float64) {
+	s.Total = val
+}
+
+// SetDevices sets the value of Devices.
+func (s *DeleteUserHwidDeviceResponseDtoResponse) SetDevices(val []DeleteUserHwidDeviceResponseDtoResponseDevicesItem) {
+	s.Devices = val
+}
+
+type DeleteUserHwidDeviceResponseDtoResponseDevicesItem struct {
+	Hwid        string    `json:"hwid"`
+	UserId      float64   `json:"userId"`
+	Platform    NilString `json:"platform"`
+	OsVersion   NilString `json:"osVersion"`
+	DeviceModel NilString `json:"deviceModel"`
+	UserAgent   NilString `json:"userAgent"`
+	RequestIp   NilString `json:"requestIp"`
+	CreatedAt   time.Time `json:"createdAt"`
+	UpdatedAt   time.Time `json:"updatedAt"`
+}
+
+// GetHwid returns the value of Hwid.
+func (s *DeleteUserHwidDeviceResponseDtoResponseDevicesItem) GetHwid() string {
+	return s.Hwid
+}
+
+// GetUserId returns the value of UserId.
+func (s *DeleteUserHwidDeviceResponseDtoResponseDevicesItem) GetUserId() float64 {
+	return s.UserId
+}
+
+// GetPlatform returns the value of Platform.
+func (s *DeleteUserHwidDeviceResponseDtoResponseDevicesItem) GetPlatform() NilString {
+	return s.Platform
+}
+
+// GetOsVersion returns the value of OsVersion.
+func (s *DeleteUserHwidDeviceResponseDtoResponseDevicesItem) GetOsVersion() NilString {
+	return s.OsVersion
+}
+
+// GetDeviceModel returns the value of DeviceModel.
+func (s *DeleteUserHwidDeviceResponseDtoResponseDevicesItem) GetDeviceModel() NilString {
+	return s.DeviceModel
+}
+
+// GetUserAgent returns the value of UserAgent.
+func (s *DeleteUserHwidDeviceResponseDtoResponseDevicesItem) GetUserAgent() NilString {
+	return s.UserAgent
+}
+
+// GetRequestIp returns the value of RequestIp.
+func (s *DeleteUserHwidDeviceResponseDtoResponseDevicesItem) GetRequestIp() NilString {
+	return s.RequestIp
+}
+
+// GetCreatedAt returns the value of CreatedAt.
+func (s *DeleteUserHwidDeviceResponseDtoResponseDevicesItem) GetCreatedAt() time.Time {
+	return s.CreatedAt
+}
+
+// GetUpdatedAt returns the value of UpdatedAt.
+func (s *DeleteUserHwidDeviceResponseDtoResponseDevicesItem) GetUpdatedAt() time.Time {
+	return s.UpdatedAt
+}
+
+// SetHwid sets the value of Hwid.
+func (s *DeleteUserHwidDeviceResponseDtoResponseDevicesItem) SetHwid(val string) {
+	s.Hwid = val
+}
+
+// SetUserId sets the value of UserId.
+func (s *DeleteUserHwidDeviceResponseDtoResponseDevicesItem) SetUserId(val float64) {
+	s.UserId = val
+}
+
+// SetPlatform sets the value of Platform.
+func (s *DeleteUserHwidDeviceResponseDtoResponseDevicesItem) SetPlatform(val NilString) {
+	s.Platform = val
+}
+
+// SetOsVersion sets the value of OsVersion.
+func (s *DeleteUserHwidDeviceResponseDtoResponseDevicesItem) SetOsVersion(val NilString) {
+	s.OsVersion = val
+}
+
+// SetDeviceModel sets the value of DeviceModel.
+func (s *DeleteUserHwidDeviceResponseDtoResponseDevicesItem) SetDeviceModel(val NilString) {
+	s.DeviceModel = val
+}
+
+// SetUserAgent sets the value of UserAgent.
+func (s *DeleteUserHwidDeviceResponseDtoResponseDevicesItem) SetUserAgent(val NilString) {
+	s.UserAgent = val
+}
+
+// SetRequestIp sets the value of RequestIp.
+func (s *DeleteUserHwidDeviceResponseDtoResponseDevicesItem) SetRequestIp(val NilString) {
+	s.RequestIp = val
+}
+
+// SetCreatedAt sets the value of CreatedAt.
+func (s *DeleteUserHwidDeviceResponseDtoResponseDevicesItem) SetCreatedAt(val time.Time) {
+	s.CreatedAt = val
+}
+
+// SetUpdatedAt sets the value of UpdatedAt.
+func (s *DeleteUserHwidDeviceResponseDtoResponseDevicesItem) SetUpdatedAt(val time.Time) {
+	s.UpdatedAt = val
 }
 
 // Ref: #/components/schemas/GetInternalSquadsResponseDto
@@ -1017,529 +937,6 @@ func (s *GetUserHwidDevicesResponseDtoResponseDevicesItem) SetCreatedAt(val time
 // SetUpdatedAt sets the value of UpdatedAt.
 func (s *GetUserHwidDevicesResponseDtoResponseDevicesItem) SetUpdatedAt(val time.Time) {
 	s.UpdatedAt = val
-}
-
-// Ref: #/components/schemas/GetUsersResponseDto
-type GetUsersResponseDto struct {
-	Response GetUsersResponseDtoResponse `json:"response"`
-}
-
-// GetResponse returns the value of Response.
-func (s *GetUsersResponseDto) GetResponse() GetUsersResponseDtoResponse {
-	return s.Response
-}
-
-// SetResponse sets the value of Response.
-func (s *GetUsersResponseDto) SetResponse(val GetUsersResponseDtoResponse) {
-	s.Response = val
-}
-
-func (*GetUsersResponseDto) usersControllerGetUsersRes() {}
-
-type GetUsersResponseDtoResponse struct {
-	Users []GetUsersResponseDtoResponseUsersItem `json:"users"`
-	Total float64                                `json:"total"`
-}
-
-// GetUsers returns the value of Users.
-func (s *GetUsersResponseDtoResponse) GetUsers() []GetUsersResponseDtoResponseUsersItem {
-	return s.Users
-}
-
-// GetTotal returns the value of Total.
-func (s *GetUsersResponseDtoResponse) GetTotal() float64 {
-	return s.Total
-}
-
-// SetUsers sets the value of Users.
-func (s *GetUsersResponseDtoResponse) SetUsers(val []GetUsersResponseDtoResponseUsersItem) {
-	s.Users = val
-}
-
-// SetTotal sets the value of Total.
-func (s *GetUsersResponseDtoResponse) SetTotal(val float64) {
-	s.Total = val
-}
-
-type GetUsersResponseDtoResponseUsersItem struct {
-	ID                float64                                    `json:"id"`
-	ShortUuid         string                                     `json:"shortUuid"`
-	Username          string                                     `json:"username"`
-	Status            GetUsersResponseDtoResponseUsersItemStatus `json:"status"`
-	TrafficLimitBytes float64                                    `json:"trafficLimitBytes"`
-	// Available reset periods.
-	TrafficLimitStrategy   GetUsersResponseDtoResponseUsersItemTrafficLimitStrategy       `json:"trafficLimitStrategy"`
-	ExpireAt               time.Time                                                      `json:"expireAt"`
-	TelegramId             NilFloat64                                                     `json:"telegramId"`
-	Email                  NilString                                                      `json:"email"`
-	Description            NilString                                                      `json:"description"`
-	Tag                    NilString                                                      `json:"tag"`
-	HwidDeviceLimit        NilInt                                                         `json:"hwidDeviceLimit"`
-	ExternalSquadUuid      NilUUID                                                        `json:"externalSquadUuid"`
-	TrojanPassword         string                                                         `json:"trojanPassword"`
-	VlessUuid              uuid.UUID                                                      `json:"vlessUuid"`
-	SsPassword             string                                                         `json:"ssPassword"`
-	LastTriggeredThreshold int                                                            `json:"lastTriggeredThreshold"`
-	SubRevokedAt           NilDateTime                                                    `json:"subRevokedAt"`
-	LastTrafficResetAt     NilDateTime                                                    `json:"lastTrafficResetAt"`
-	CreatedAt              time.Time                                                      `json:"createdAt"`
-	UpdatedAt              time.Time                                                      `json:"updatedAt"`
-	SubscriptionUrl        string                                                         `json:"subscriptionUrl"`
-	ActiveInternalSquads   []GetUsersResponseDtoResponseUsersItemActiveInternalSquadsItem `json:"activeInternalSquads"`
-	UserTraffic            GetUsersResponseDtoResponseUsersItemUserTraffic                `json:"userTraffic"`
-}
-
-// GetID returns the value of ID.
-func (s *GetUsersResponseDtoResponseUsersItem) GetID() float64 {
-	return s.ID
-}
-
-// GetShortUuid returns the value of ShortUuid.
-func (s *GetUsersResponseDtoResponseUsersItem) GetShortUuid() string {
-	return s.ShortUuid
-}
-
-// GetUsername returns the value of Username.
-func (s *GetUsersResponseDtoResponseUsersItem) GetUsername() string {
-	return s.Username
-}
-
-// GetStatus returns the value of Status.
-func (s *GetUsersResponseDtoResponseUsersItem) GetStatus() GetUsersResponseDtoResponseUsersItemStatus {
-	return s.Status
-}
-
-// GetTrafficLimitBytes returns the value of TrafficLimitBytes.
-func (s *GetUsersResponseDtoResponseUsersItem) GetTrafficLimitBytes() float64 {
-	return s.TrafficLimitBytes
-}
-
-// GetTrafficLimitStrategy returns the value of TrafficLimitStrategy.
-func (s *GetUsersResponseDtoResponseUsersItem) GetTrafficLimitStrategy() GetUsersResponseDtoResponseUsersItemTrafficLimitStrategy {
-	return s.TrafficLimitStrategy
-}
-
-// GetExpireAt returns the value of ExpireAt.
-func (s *GetUsersResponseDtoResponseUsersItem) GetExpireAt() time.Time {
-	return s.ExpireAt
-}
-
-// GetTelegramId returns the value of TelegramId.
-func (s *GetUsersResponseDtoResponseUsersItem) GetTelegramId() NilFloat64 {
-	return s.TelegramId
-}
-
-// GetEmail returns the value of Email.
-func (s *GetUsersResponseDtoResponseUsersItem) GetEmail() NilString {
-	return s.Email
-}
-
-// GetDescription returns the value of Description.
-func (s *GetUsersResponseDtoResponseUsersItem) GetDescription() NilString {
-	return s.Description
-}
-
-// GetTag returns the value of Tag.
-func (s *GetUsersResponseDtoResponseUsersItem) GetTag() NilString {
-	return s.Tag
-}
-
-// GetHwidDeviceLimit returns the value of HwidDeviceLimit.
-func (s *GetUsersResponseDtoResponseUsersItem) GetHwidDeviceLimit() NilInt {
-	return s.HwidDeviceLimit
-}
-
-// GetExternalSquadUuid returns the value of ExternalSquadUuid.
-func (s *GetUsersResponseDtoResponseUsersItem) GetExternalSquadUuid() NilUUID {
-	return s.ExternalSquadUuid
-}
-
-// GetTrojanPassword returns the value of TrojanPassword.
-func (s *GetUsersResponseDtoResponseUsersItem) GetTrojanPassword() string {
-	return s.TrojanPassword
-}
-
-// GetVlessUuid returns the value of VlessUuid.
-func (s *GetUsersResponseDtoResponseUsersItem) GetVlessUuid() uuid.UUID {
-	return s.VlessUuid
-}
-
-// GetSsPassword returns the value of SsPassword.
-func (s *GetUsersResponseDtoResponseUsersItem) GetSsPassword() string {
-	return s.SsPassword
-}
-
-// GetLastTriggeredThreshold returns the value of LastTriggeredThreshold.
-func (s *GetUsersResponseDtoResponseUsersItem) GetLastTriggeredThreshold() int {
-	return s.LastTriggeredThreshold
-}
-
-// GetSubRevokedAt returns the value of SubRevokedAt.
-func (s *GetUsersResponseDtoResponseUsersItem) GetSubRevokedAt() NilDateTime {
-	return s.SubRevokedAt
-}
-
-// GetLastTrafficResetAt returns the value of LastTrafficResetAt.
-func (s *GetUsersResponseDtoResponseUsersItem) GetLastTrafficResetAt() NilDateTime {
-	return s.LastTrafficResetAt
-}
-
-// GetCreatedAt returns the value of CreatedAt.
-func (s *GetUsersResponseDtoResponseUsersItem) GetCreatedAt() time.Time {
-	return s.CreatedAt
-}
-
-// GetUpdatedAt returns the value of UpdatedAt.
-func (s *GetUsersResponseDtoResponseUsersItem) GetUpdatedAt() time.Time {
-	return s.UpdatedAt
-}
-
-// GetSubscriptionUrl returns the value of SubscriptionUrl.
-func (s *GetUsersResponseDtoResponseUsersItem) GetSubscriptionUrl() string {
-	return s.SubscriptionUrl
-}
-
-// GetActiveInternalSquads returns the value of ActiveInternalSquads.
-func (s *GetUsersResponseDtoResponseUsersItem) GetActiveInternalSquads() []GetUsersResponseDtoResponseUsersItemActiveInternalSquadsItem {
-	return s.ActiveInternalSquads
-}
-
-// GetUserTraffic returns the value of UserTraffic.
-func (s *GetUsersResponseDtoResponseUsersItem) GetUserTraffic() GetUsersResponseDtoResponseUsersItemUserTraffic {
-	return s.UserTraffic
-}
-
-// SetID sets the value of ID.
-func (s *GetUsersResponseDtoResponseUsersItem) SetID(val float64) {
-	s.ID = val
-}
-
-// SetShortUuid sets the value of ShortUuid.
-func (s *GetUsersResponseDtoResponseUsersItem) SetShortUuid(val string) {
-	s.ShortUuid = val
-}
-
-// SetUsername sets the value of Username.
-func (s *GetUsersResponseDtoResponseUsersItem) SetUsername(val string) {
-	s.Username = val
-}
-
-// SetStatus sets the value of Status.
-func (s *GetUsersResponseDtoResponseUsersItem) SetStatus(val GetUsersResponseDtoResponseUsersItemStatus) {
-	s.Status = val
-}
-
-// SetTrafficLimitBytes sets the value of TrafficLimitBytes.
-func (s *GetUsersResponseDtoResponseUsersItem) SetTrafficLimitBytes(val float64) {
-	s.TrafficLimitBytes = val
-}
-
-// SetTrafficLimitStrategy sets the value of TrafficLimitStrategy.
-func (s *GetUsersResponseDtoResponseUsersItem) SetTrafficLimitStrategy(val GetUsersResponseDtoResponseUsersItemTrafficLimitStrategy) {
-	s.TrafficLimitStrategy = val
-}
-
-// SetExpireAt sets the value of ExpireAt.
-func (s *GetUsersResponseDtoResponseUsersItem) SetExpireAt(val time.Time) {
-	s.ExpireAt = val
-}
-
-// SetTelegramId sets the value of TelegramId.
-func (s *GetUsersResponseDtoResponseUsersItem) SetTelegramId(val NilFloat64) {
-	s.TelegramId = val
-}
-
-// SetEmail sets the value of Email.
-func (s *GetUsersResponseDtoResponseUsersItem) SetEmail(val NilString) {
-	s.Email = val
-}
-
-// SetDescription sets the value of Description.
-func (s *GetUsersResponseDtoResponseUsersItem) SetDescription(val NilString) {
-	s.Description = val
-}
-
-// SetTag sets the value of Tag.
-func (s *GetUsersResponseDtoResponseUsersItem) SetTag(val NilString) {
-	s.Tag = val
-}
-
-// SetHwidDeviceLimit sets the value of HwidDeviceLimit.
-func (s *GetUsersResponseDtoResponseUsersItem) SetHwidDeviceLimit(val NilInt) {
-	s.HwidDeviceLimit = val
-}
-
-// SetExternalSquadUuid sets the value of ExternalSquadUuid.
-func (s *GetUsersResponseDtoResponseUsersItem) SetExternalSquadUuid(val NilUUID) {
-	s.ExternalSquadUuid = val
-}
-
-// SetTrojanPassword sets the value of TrojanPassword.
-func (s *GetUsersResponseDtoResponseUsersItem) SetTrojanPassword(val string) {
-	s.TrojanPassword = val
-}
-
-// SetVlessUuid sets the value of VlessUuid.
-func (s *GetUsersResponseDtoResponseUsersItem) SetVlessUuid(val uuid.UUID) {
-	s.VlessUuid = val
-}
-
-// SetSsPassword sets the value of SsPassword.
-func (s *GetUsersResponseDtoResponseUsersItem) SetSsPassword(val string) {
-	s.SsPassword = val
-}
-
-// SetLastTriggeredThreshold sets the value of LastTriggeredThreshold.
-func (s *GetUsersResponseDtoResponseUsersItem) SetLastTriggeredThreshold(val int) {
-	s.LastTriggeredThreshold = val
-}
-
-// SetSubRevokedAt sets the value of SubRevokedAt.
-func (s *GetUsersResponseDtoResponseUsersItem) SetSubRevokedAt(val NilDateTime) {
-	s.SubRevokedAt = val
-}
-
-// SetLastTrafficResetAt sets the value of LastTrafficResetAt.
-func (s *GetUsersResponseDtoResponseUsersItem) SetLastTrafficResetAt(val NilDateTime) {
-	s.LastTrafficResetAt = val
-}
-
-// SetCreatedAt sets the value of CreatedAt.
-func (s *GetUsersResponseDtoResponseUsersItem) SetCreatedAt(val time.Time) {
-	s.CreatedAt = val
-}
-
-// SetUpdatedAt sets the value of UpdatedAt.
-func (s *GetUsersResponseDtoResponseUsersItem) SetUpdatedAt(val time.Time) {
-	s.UpdatedAt = val
-}
-
-// SetSubscriptionUrl sets the value of SubscriptionUrl.
-func (s *GetUsersResponseDtoResponseUsersItem) SetSubscriptionUrl(val string) {
-	s.SubscriptionUrl = val
-}
-
-// SetActiveInternalSquads sets the value of ActiveInternalSquads.
-func (s *GetUsersResponseDtoResponseUsersItem) SetActiveInternalSquads(val []GetUsersResponseDtoResponseUsersItemActiveInternalSquadsItem) {
-	s.ActiveInternalSquads = val
-}
-
-// SetUserTraffic sets the value of UserTraffic.
-func (s *GetUsersResponseDtoResponseUsersItem) SetUserTraffic(val GetUsersResponseDtoResponseUsersItemUserTraffic) {
-	s.UserTraffic = val
-}
-
-type GetUsersResponseDtoResponseUsersItemActiveInternalSquadsItem struct {
-	UUID uuid.UUID `json:"uuid"`
-	Name string    `json:"name"`
-}
-
-// GetUUID returns the value of UUID.
-func (s *GetUsersResponseDtoResponseUsersItemActiveInternalSquadsItem) GetUUID() uuid.UUID {
-	return s.UUID
-}
-
-// GetName returns the value of Name.
-func (s *GetUsersResponseDtoResponseUsersItemActiveInternalSquadsItem) GetName() string {
-	return s.Name
-}
-
-// SetUUID sets the value of UUID.
-func (s *GetUsersResponseDtoResponseUsersItemActiveInternalSquadsItem) SetUUID(val uuid.UUID) {
-	s.UUID = val
-}
-
-// SetName sets the value of Name.
-func (s *GetUsersResponseDtoResponseUsersItemActiveInternalSquadsItem) SetName(val string) {
-	s.Name = val
-}
-
-type GetUsersResponseDtoResponseUsersItemStatus string
-
-const (
-	GetUsersResponseDtoResponseUsersItemStatusACTIVE   GetUsersResponseDtoResponseUsersItemStatus = "ACTIVE"
-	GetUsersResponseDtoResponseUsersItemStatusDISABLED GetUsersResponseDtoResponseUsersItemStatus = "DISABLED"
-	GetUsersResponseDtoResponseUsersItemStatusLIMITED  GetUsersResponseDtoResponseUsersItemStatus = "LIMITED"
-	GetUsersResponseDtoResponseUsersItemStatusEXPIRED  GetUsersResponseDtoResponseUsersItemStatus = "EXPIRED"
-)
-
-// AllValues returns all GetUsersResponseDtoResponseUsersItemStatus values.
-func (GetUsersResponseDtoResponseUsersItemStatus) AllValues() []GetUsersResponseDtoResponseUsersItemStatus {
-	return []GetUsersResponseDtoResponseUsersItemStatus{
-		GetUsersResponseDtoResponseUsersItemStatusACTIVE,
-		GetUsersResponseDtoResponseUsersItemStatusDISABLED,
-		GetUsersResponseDtoResponseUsersItemStatusLIMITED,
-		GetUsersResponseDtoResponseUsersItemStatusEXPIRED,
-	}
-}
-
-// MarshalText implements encoding.TextMarshaler.
-func (s GetUsersResponseDtoResponseUsersItemStatus) MarshalText() ([]byte, error) {
-	switch s {
-	case GetUsersResponseDtoResponseUsersItemStatusACTIVE:
-		return []byte(s), nil
-	case GetUsersResponseDtoResponseUsersItemStatusDISABLED:
-		return []byte(s), nil
-	case GetUsersResponseDtoResponseUsersItemStatusLIMITED:
-		return []byte(s), nil
-	case GetUsersResponseDtoResponseUsersItemStatusEXPIRED:
-		return []byte(s), nil
-	default:
-		return nil, errors.Errorf("invalid value: %q", s)
-	}
-}
-
-// UnmarshalText implements encoding.TextUnmarshaler.
-func (s *GetUsersResponseDtoResponseUsersItemStatus) UnmarshalText(data []byte) error {
-	switch GetUsersResponseDtoResponseUsersItemStatus(data) {
-	case GetUsersResponseDtoResponseUsersItemStatusACTIVE:
-		*s = GetUsersResponseDtoResponseUsersItemStatusACTIVE
-		return nil
-	case GetUsersResponseDtoResponseUsersItemStatusDISABLED:
-		*s = GetUsersResponseDtoResponseUsersItemStatusDISABLED
-		return nil
-	case GetUsersResponseDtoResponseUsersItemStatusLIMITED:
-		*s = GetUsersResponseDtoResponseUsersItemStatusLIMITED
-		return nil
-	case GetUsersResponseDtoResponseUsersItemStatusEXPIRED:
-		*s = GetUsersResponseDtoResponseUsersItemStatusEXPIRED
-		return nil
-	default:
-		return errors.Errorf("invalid value: %q", data)
-	}
-}
-
-// Available reset periods.
-type GetUsersResponseDtoResponseUsersItemTrafficLimitStrategy string
-
-const (
-	GetUsersResponseDtoResponseUsersItemTrafficLimitStrategyNORESET      GetUsersResponseDtoResponseUsersItemTrafficLimitStrategy = "NO_RESET"
-	GetUsersResponseDtoResponseUsersItemTrafficLimitStrategyDAY          GetUsersResponseDtoResponseUsersItemTrafficLimitStrategy = "DAY"
-	GetUsersResponseDtoResponseUsersItemTrafficLimitStrategyWEEK         GetUsersResponseDtoResponseUsersItemTrafficLimitStrategy = "WEEK"
-	GetUsersResponseDtoResponseUsersItemTrafficLimitStrategyMONTH        GetUsersResponseDtoResponseUsersItemTrafficLimitStrategy = "MONTH"
-	GetUsersResponseDtoResponseUsersItemTrafficLimitStrategyMONTHROLLING GetUsersResponseDtoResponseUsersItemTrafficLimitStrategy = "MONTH_ROLLING"
-)
-
-// AllValues returns all GetUsersResponseDtoResponseUsersItemTrafficLimitStrategy values.
-func (GetUsersResponseDtoResponseUsersItemTrafficLimitStrategy) AllValues() []GetUsersResponseDtoResponseUsersItemTrafficLimitStrategy {
-	return []GetUsersResponseDtoResponseUsersItemTrafficLimitStrategy{
-		GetUsersResponseDtoResponseUsersItemTrafficLimitStrategyNORESET,
-		GetUsersResponseDtoResponseUsersItemTrafficLimitStrategyDAY,
-		GetUsersResponseDtoResponseUsersItemTrafficLimitStrategyWEEK,
-		GetUsersResponseDtoResponseUsersItemTrafficLimitStrategyMONTH,
-		GetUsersResponseDtoResponseUsersItemTrafficLimitStrategyMONTHROLLING,
-	}
-}
-
-// MarshalText implements encoding.TextMarshaler.
-func (s GetUsersResponseDtoResponseUsersItemTrafficLimitStrategy) MarshalText() ([]byte, error) {
-	switch s {
-	case GetUsersResponseDtoResponseUsersItemTrafficLimitStrategyNORESET:
-		return []byte(s), nil
-	case GetUsersResponseDtoResponseUsersItemTrafficLimitStrategyDAY:
-		return []byte(s), nil
-	case GetUsersResponseDtoResponseUsersItemTrafficLimitStrategyWEEK:
-		return []byte(s), nil
-	case GetUsersResponseDtoResponseUsersItemTrafficLimitStrategyMONTH:
-		return []byte(s), nil
-	case GetUsersResponseDtoResponseUsersItemTrafficLimitStrategyMONTHROLLING:
-		return []byte(s), nil
-	default:
-		return nil, errors.Errorf("invalid value: %q", s)
-	}
-}
-
-// UnmarshalText implements encoding.TextUnmarshaler.
-func (s *GetUsersResponseDtoResponseUsersItemTrafficLimitStrategy) UnmarshalText(data []byte) error {
-	switch GetUsersResponseDtoResponseUsersItemTrafficLimitStrategy(data) {
-	case GetUsersResponseDtoResponseUsersItemTrafficLimitStrategyNORESET:
-		*s = GetUsersResponseDtoResponseUsersItemTrafficLimitStrategyNORESET
-		return nil
-	case GetUsersResponseDtoResponseUsersItemTrafficLimitStrategyDAY:
-		*s = GetUsersResponseDtoResponseUsersItemTrafficLimitStrategyDAY
-		return nil
-	case GetUsersResponseDtoResponseUsersItemTrafficLimitStrategyWEEK:
-		*s = GetUsersResponseDtoResponseUsersItemTrafficLimitStrategyWEEK
-		return nil
-	case GetUsersResponseDtoResponseUsersItemTrafficLimitStrategyMONTH:
-		*s = GetUsersResponseDtoResponseUsersItemTrafficLimitStrategyMONTH
-		return nil
-	case GetUsersResponseDtoResponseUsersItemTrafficLimitStrategyMONTHROLLING:
-		*s = GetUsersResponseDtoResponseUsersItemTrafficLimitStrategyMONTHROLLING
-		return nil
-	default:
-		return errors.Errorf("invalid value: %q", data)
-	}
-}
-
-type GetUsersResponseDtoResponseUsersItemUserTraffic struct {
-	UsedTrafficBytes         float64     `json:"usedTrafficBytes"`
-	LifetimeUsedTrafficBytes float64     `json:"lifetimeUsedTrafficBytes"`
-	OnlineAt                 NilDateTime `json:"onlineAt"`
-	FirstConnectedAt         NilDateTime `json:"firstConnectedAt"`
-	LastConnectedNodeUuid    NilUUID     `json:"lastConnectedNodeUuid"`
-}
-
-// GetUsedTrafficBytes returns the value of UsedTrafficBytes.
-func (s *GetUsersResponseDtoResponseUsersItemUserTraffic) GetUsedTrafficBytes() float64 {
-	return s.UsedTrafficBytes
-}
-
-// GetLifetimeUsedTrafficBytes returns the value of LifetimeUsedTrafficBytes.
-func (s *GetUsersResponseDtoResponseUsersItemUserTraffic) GetLifetimeUsedTrafficBytes() float64 {
-	return s.LifetimeUsedTrafficBytes
-}
-
-// GetOnlineAt returns the value of OnlineAt.
-func (s *GetUsersResponseDtoResponseUsersItemUserTraffic) GetOnlineAt() NilDateTime {
-	return s.OnlineAt
-}
-
-// GetFirstConnectedAt returns the value of FirstConnectedAt.
-func (s *GetUsersResponseDtoResponseUsersItemUserTraffic) GetFirstConnectedAt() NilDateTime {
-	return s.FirstConnectedAt
-}
-
-// GetLastConnectedNodeUuid returns the value of LastConnectedNodeUuid.
-func (s *GetUsersResponseDtoResponseUsersItemUserTraffic) GetLastConnectedNodeUuid() NilUUID {
-	return s.LastConnectedNodeUuid
-}
-
-// SetUsedTrafficBytes sets the value of UsedTrafficBytes.
-func (s *GetUsersResponseDtoResponseUsersItemUserTraffic) SetUsedTrafficBytes(val float64) {
-	s.UsedTrafficBytes = val
-}
-
-// SetLifetimeUsedTrafficBytes sets the value of LifetimeUsedTrafficBytes.
-func (s *GetUsersResponseDtoResponseUsersItemUserTraffic) SetLifetimeUsedTrafficBytes(val float64) {
-	s.LifetimeUsedTrafficBytes = val
-}
-
-// SetOnlineAt sets the value of OnlineAt.
-func (s *GetUsersResponseDtoResponseUsersItemUserTraffic) SetOnlineAt(val NilDateTime) {
-	s.OnlineAt = val
-}
-
-// SetFirstConnectedAt sets the value of FirstConnectedAt.
-func (s *GetUsersResponseDtoResponseUsersItemUserTraffic) SetFirstConnectedAt(val NilDateTime) {
-	s.FirstConnectedAt = val
-}
-
-// SetLastConnectedNodeUuid sets the value of LastConnectedNodeUuid.
-func (s *GetUsersResponseDtoResponseUsersItemUserTraffic) SetLastConnectedNodeUuid(val NilUUID) {
-	s.LastConnectedNodeUuid = val
-}
-
-// InternalSquadControllerCreateInternalSquadConflict is response for InternalSquadControllerCreateInternalSquad operation.
-type InternalSquadControllerCreateInternalSquadConflict struct{}
-
-func (*InternalSquadControllerCreateInternalSquadConflict) internalSquadControllerCreateInternalSquadRes() {
-}
-
-// InternalSquadControllerUpdateInternalSquadConflict is response for InternalSquadControllerUpdateInternalSquad operation.
-type InternalSquadControllerUpdateInternalSquadConflict struct{}
-
-func (*InternalSquadControllerUpdateInternalSquadConflict) internalSquadControllerUpdateInternalSquadRes() {
 }
 
 // NewNilDateTime returns new NilDateTime with value set to v.
@@ -2453,52 +1850,6 @@ func (o OptUpdateUserBodyDtoTrafficLimitStrategy) Or(d UpdateUserBodyDtoTrafficL
 	return d
 }
 
-// NewOptUsersControllerGetUsersFilterModes returns new OptUsersControllerGetUsersFilterModes with value set to v.
-func NewOptUsersControllerGetUsersFilterModes(v UsersControllerGetUsersFilterModes) OptUsersControllerGetUsersFilterModes {
-	return OptUsersControllerGetUsersFilterModes{
-		Value: v,
-		Set:   true,
-	}
-}
-
-// OptUsersControllerGetUsersFilterModes is optional UsersControllerGetUsersFilterModes.
-type OptUsersControllerGetUsersFilterModes struct {
-	Value UsersControllerGetUsersFilterModes
-	Set   bool
-}
-
-// IsSet returns true if OptUsersControllerGetUsersFilterModes was set.
-func (o OptUsersControllerGetUsersFilterModes) IsSet() bool { return o.Set }
-
-// Reset unsets value.
-func (o *OptUsersControllerGetUsersFilterModes) Reset() {
-	var v UsersControllerGetUsersFilterModes
-	o.Value = v
-	o.Set = false
-}
-
-// SetTo sets value to v.
-func (o *OptUsersControllerGetUsersFilterModes) SetTo(v UsersControllerGetUsersFilterModes) {
-	o.Set = true
-	o.Value = v
-}
-
-// Get returns value and boolean that denotes whether value was set.
-func (o OptUsersControllerGetUsersFilterModes) Get() (v UsersControllerGetUsersFilterModes, ok bool) {
-	if !o.Set {
-		return v, false
-	}
-	return o.Value, true
-}
-
-// Or returns value if set, or given parameter if does not.
-func (o OptUsersControllerGetUsersFilterModes) Or(d UsersControllerGetUsersFilterModes) UsersControllerGetUsersFilterModes {
-	if v, ok := o.Get(); ok {
-		return v
-	}
-	return d
-}
-
 // Ref: #/components/schemas/RemnawaveInternalServerErrorDto
 type RemnawaveInternalServerErrorDto struct {
 	// Time when the error occurred, in ISO 8601 format.
@@ -2727,19 +2078,16 @@ func (s *RemnawaveInternalServerErrorDto) SetErrorCode(val RemnawaveInternalServ
 	s.ErrorCode = val
 }
 
-func (*RemnawaveInternalServerErrorDto) hwidUserDevicesControllerGetUserHwidDevicesRes() {}
-func (*RemnawaveInternalServerErrorDto) internalSquadControllerCreateInternalSquadRes()  {}
-func (*RemnawaveInternalServerErrorDto) internalSquadControllerGetInternalSquadsRes()    {}
-func (*RemnawaveInternalServerErrorDto) internalSquadControllerUpdateInternalSquadRes()  {}
-func (*RemnawaveInternalServerErrorDto) usersControllerCreateUserRes()                   {}
-func (*RemnawaveInternalServerErrorDto) usersControllerDeleteUserRes()                   {}
-func (*RemnawaveInternalServerErrorDto) usersControllerDisableUserRes()                  {}
-func (*RemnawaveInternalServerErrorDto) usersControllerEnableUserRes()                   {}
-func (*RemnawaveInternalServerErrorDto) usersControllerGetUserByIdRes()                  {}
-func (*RemnawaveInternalServerErrorDto) usersControllerGetUserByUsernameRes()            {}
-func (*RemnawaveInternalServerErrorDto) usersControllerGetUsersRes()                     {}
-func (*RemnawaveInternalServerErrorDto) usersControllerRevokeUserSubscriptionRes()       {}
-func (*RemnawaveInternalServerErrorDto) usersControllerUpdateUserRes()                   {}
+func (*RemnawaveInternalServerErrorDto) hwidUserDevicesControllerDeleteUserHwidDeviceRes() {}
+func (*RemnawaveInternalServerErrorDto) hwidUserDevicesControllerGetUserHwidDevicesRes()   {}
+func (*RemnawaveInternalServerErrorDto) internalSquadControllerGetInternalSquadsRes()      {}
+func (*RemnawaveInternalServerErrorDto) usersControllerCreateUserRes()                     {}
+func (*RemnawaveInternalServerErrorDto) usersControllerDisableUserRes()                    {}
+func (*RemnawaveInternalServerErrorDto) usersControllerEnableUserRes()                     {}
+func (*RemnawaveInternalServerErrorDto) usersControllerGetUserByIdRes()                    {}
+func (*RemnawaveInternalServerErrorDto) usersControllerGetUserByUsernameRes()              {}
+func (*RemnawaveInternalServerErrorDto) usersControllerRevokeUserSubscriptionRes()         {}
+func (*RemnawaveInternalServerErrorDto) usersControllerUpdateUserRes()                     {}
 
 // Error code. Possible values:
 //
@@ -5503,19 +4851,16 @@ func (s *RemnawaveNotFoundErrorDto) SetErrorCode(val RemnawaveNotFoundErrorDtoEr
 	s.ErrorCode = val
 }
 
-func (*RemnawaveNotFoundErrorDto) hwidUserDevicesControllerGetUserHwidDevicesRes() {}
-func (*RemnawaveNotFoundErrorDto) internalSquadControllerCreateInternalSquadRes()  {}
-func (*RemnawaveNotFoundErrorDto) internalSquadControllerGetInternalSquadsRes()    {}
-func (*RemnawaveNotFoundErrorDto) internalSquadControllerUpdateInternalSquadRes()  {}
-func (*RemnawaveNotFoundErrorDto) usersControllerCreateUserRes()                   {}
-func (*RemnawaveNotFoundErrorDto) usersControllerDeleteUserRes()                   {}
-func (*RemnawaveNotFoundErrorDto) usersControllerDisableUserRes()                  {}
-func (*RemnawaveNotFoundErrorDto) usersControllerEnableUserRes()                   {}
-func (*RemnawaveNotFoundErrorDto) usersControllerGetUserByIdRes()                  {}
-func (*RemnawaveNotFoundErrorDto) usersControllerGetUserByUsernameRes()            {}
-func (*RemnawaveNotFoundErrorDto) usersControllerGetUsersRes()                     {}
-func (*RemnawaveNotFoundErrorDto) usersControllerRevokeUserSubscriptionRes()       {}
-func (*RemnawaveNotFoundErrorDto) usersControllerUpdateUserRes()                   {}
+func (*RemnawaveNotFoundErrorDto) hwidUserDevicesControllerDeleteUserHwidDeviceRes() {}
+func (*RemnawaveNotFoundErrorDto) hwidUserDevicesControllerGetUserHwidDevicesRes()   {}
+func (*RemnawaveNotFoundErrorDto) internalSquadControllerGetInternalSquadsRes()      {}
+func (*RemnawaveNotFoundErrorDto) usersControllerCreateUserRes()                     {}
+func (*RemnawaveNotFoundErrorDto) usersControllerDisableUserRes()                    {}
+func (*RemnawaveNotFoundErrorDto) usersControllerEnableUserRes()                     {}
+func (*RemnawaveNotFoundErrorDto) usersControllerGetUserByIdRes()                    {}
+func (*RemnawaveNotFoundErrorDto) usersControllerGetUserByUsernameRes()              {}
+func (*RemnawaveNotFoundErrorDto) usersControllerRevokeUserSubscriptionRes()         {}
+func (*RemnawaveNotFoundErrorDto) usersControllerUpdateUserRes()                     {}
 
 // Error code. Possible values:
 //
@@ -6009,265 +5354,184 @@ func (s *RevokeUserSubscriptionBodyDto) SetShortUuid(val OptString) {
 	s.ShortUuid = val
 }
 
-// Ref: #/components/schemas/UpdateInternalSquadBodyDto
-type UpdateInternalSquadBodyDto struct {
-	UUID     uuid.UUID   `json:"uuid"`
-	Name     OptString   `json:"name"`
-	Inbounds []uuid.UUID `json:"inbounds"`
+// Ref: #/components/schemas/RwxUnifiedRemnawaveBadRequestErrorDto
+type RwxUnifiedRemnawaveBadRequestErrorDto struct {
+	// Time when the error occurred, in ISO 8601 format.
+	Timestamp OptString `json:"timestamp"`
+	// Path of the request that caused the error.
+	Path OptString `json:"path"`
+	// Human-readable error message.
+	Message string `json:"message"`
+	// Error code. Possible values:
+	//
+	//  - `A019` — User username already exists
+	//  - `A020` — User short UUID already exists
+	//  - `A021` — User subscription UUID already exists
+	//  - `A029` — User already disabled
+	//  - `A030` — User already enabled
+	//  - `A033` — Node name already exists
+	//  - `A034` — Node address already exists
+	//  - `A045` — Host remark already exists
+	//  - `A089` — LIMITED and EXPIRED statuses are not allowed to be set manually.
+	//  - `A098` — User hwid device already exists
+	//  - `A099` — User hwid device limit reached
+	//  - `A144` — This name is reserved by Remnawave. Please use a different name.
+	//  - `A145` — This name is reserved by Remnawave. Please use a different name.
+	//  - `A149` — Node is disabled
+	//  - `A152` — Name or config is required
+	//  - `A153` — Name or inbounds is required
+	//  - `A164` — Snippet name already exists
+	//  - `A166` — Snippet cannot be empty
+	//  - `A167` — Snippet cannot contain empty objects
+	//  - `A172` — This name is reserved. Please use a different name.
+	//  - `A173` — Template JSON is not allowed for YAML template
+	//  - `A174` — Template YAML is not allowed for JSON template
+	//  - `A175` — Template JSON and YAML cannot be updated simultaneously
+	//  - `A176` — Template name already exists for this type
+	//  - `A178` — Reserved template cannot be deleted
+	//  - `A180` — Template type not allowed
+	//  - `A189` — External squad name already exists
+	//  - `A190` — Name or templates are required
+	//  - `A194` — Passkeys not configured
+	//  - `A195` — Passkeys not enabled. Please enable it first.
+	//  - `A209` — Reserved config name
+	//  - `A210` — Config name already exists
+	//  - `A212` — Reserved subpage config cannot be deleted
+	//  - `A215` — Invalid subscription page config
+	//  - `A216` — Invalid Remnawave injector
+	//  - `A223` — Node plugin name already exists
+	//  - `A229` — One or more provided API token scopes are invalid
+	//  - `A230` — Either nodeUuid or name must be provided
+	//  - `A235` — Start date must be before or equal to end date
+	//  - `A244` — Node integration name already exists
+	//  - `A246` — Shared list name already exists
+	ErrorCode OptString `json:"errorCode"`
+	// HTTP status code.
+	StatusCode OptFloat64 `json:"statusCode"`
+	// List of validation issues.
+	Errors []RwxUnifiedRemnawaveBadRequestErrorDtoErrorsItem `json:"errors"`
 }
 
-// GetUUID returns the value of UUID.
-func (s *UpdateInternalSquadBodyDto) GetUUID() uuid.UUID {
-	return s.UUID
+// GetTimestamp returns the value of Timestamp.
+func (s *RwxUnifiedRemnawaveBadRequestErrorDto) GetTimestamp() OptString {
+	return s.Timestamp
 }
 
-// GetName returns the value of Name.
-func (s *UpdateInternalSquadBodyDto) GetName() OptString {
-	return s.Name
+// GetPath returns the value of Path.
+func (s *RwxUnifiedRemnawaveBadRequestErrorDto) GetPath() OptString {
+	return s.Path
 }
 
-// GetInbounds returns the value of Inbounds.
-func (s *UpdateInternalSquadBodyDto) GetInbounds() []uuid.UUID {
-	return s.Inbounds
+// GetMessage returns the value of Message.
+func (s *RwxUnifiedRemnawaveBadRequestErrorDto) GetMessage() string {
+	return s.Message
 }
 
-// SetUUID sets the value of UUID.
-func (s *UpdateInternalSquadBodyDto) SetUUID(val uuid.UUID) {
-	s.UUID = val
+// GetErrorCode returns the value of ErrorCode.
+func (s *RwxUnifiedRemnawaveBadRequestErrorDto) GetErrorCode() OptString {
+	return s.ErrorCode
 }
 
-// SetName sets the value of Name.
-func (s *UpdateInternalSquadBodyDto) SetName(val OptString) {
-	s.Name = val
+// GetStatusCode returns the value of StatusCode.
+func (s *RwxUnifiedRemnawaveBadRequestErrorDto) GetStatusCode() OptFloat64 {
+	return s.StatusCode
 }
 
-// SetInbounds sets the value of Inbounds.
-func (s *UpdateInternalSquadBodyDto) SetInbounds(val []uuid.UUID) {
-	s.Inbounds = val
+// GetErrors returns the value of Errors.
+func (s *RwxUnifiedRemnawaveBadRequestErrorDto) GetErrors() []RwxUnifiedRemnawaveBadRequestErrorDtoErrorsItem {
+	return s.Errors
 }
 
-// Ref: #/components/schemas/UpdateInternalSquadResponseDto
-type UpdateInternalSquadResponseDto struct {
-	Response UpdateInternalSquadResponseDtoResponse `json:"response"`
+// SetTimestamp sets the value of Timestamp.
+func (s *RwxUnifiedRemnawaveBadRequestErrorDto) SetTimestamp(val OptString) {
+	s.Timestamp = val
 }
 
-// GetResponse returns the value of Response.
-func (s *UpdateInternalSquadResponseDto) GetResponse() UpdateInternalSquadResponseDtoResponse {
-	return s.Response
+// SetPath sets the value of Path.
+func (s *RwxUnifiedRemnawaveBadRequestErrorDto) SetPath(val OptString) {
+	s.Path = val
 }
 
-// SetResponse sets the value of Response.
-func (s *UpdateInternalSquadResponseDto) SetResponse(val UpdateInternalSquadResponseDtoResponse) {
-	s.Response = val
+// SetMessage sets the value of Message.
+func (s *RwxUnifiedRemnawaveBadRequestErrorDto) SetMessage(val string) {
+	s.Message = val
 }
 
-func (*UpdateInternalSquadResponseDto) internalSquadControllerUpdateInternalSquadRes() {}
-
-type UpdateInternalSquadResponseDtoResponse struct {
-	UUID         uuid.UUID                                            `json:"uuid"`
-	ViewPosition int                                                  `json:"viewPosition"`
-	Name         string                                               `json:"name"`
-	Tags         []string                                             `json:"tags"`
-	Info         UpdateInternalSquadResponseDtoResponseInfo           `json:"info"`
-	Inbounds     []UpdateInternalSquadResponseDtoResponseInboundsItem `json:"inbounds"`
-	CreatedAt    time.Time                                            `json:"createdAt"`
-	UpdatedAt    time.Time                                            `json:"updatedAt"`
+// SetErrorCode sets the value of ErrorCode.
+func (s *RwxUnifiedRemnawaveBadRequestErrorDto) SetErrorCode(val OptString) {
+	s.ErrorCode = val
 }
 
-// GetUUID returns the value of UUID.
-func (s *UpdateInternalSquadResponseDtoResponse) GetUUID() uuid.UUID {
-	return s.UUID
+// SetStatusCode sets the value of StatusCode.
+func (s *RwxUnifiedRemnawaveBadRequestErrorDto) SetStatusCode(val OptFloat64) {
+	s.StatusCode = val
 }
 
-// GetViewPosition returns the value of ViewPosition.
-func (s *UpdateInternalSquadResponseDtoResponse) GetViewPosition() int {
-	return s.ViewPosition
+// SetErrors sets the value of Errors.
+func (s *RwxUnifiedRemnawaveBadRequestErrorDto) SetErrors(val []RwxUnifiedRemnawaveBadRequestErrorDtoErrorsItem) {
+	s.Errors = val
 }
 
-// GetName returns the value of Name.
-func (s *UpdateInternalSquadResponseDtoResponse) GetName() string {
-	return s.Name
+func (*RwxUnifiedRemnawaveBadRequestErrorDto) hwidUserDevicesControllerDeleteUserHwidDeviceRes() {}
+func (*RwxUnifiedRemnawaveBadRequestErrorDto) hwidUserDevicesControllerGetUserHwidDevicesRes()   {}
+func (*RwxUnifiedRemnawaveBadRequestErrorDto) internalSquadControllerGetInternalSquadsRes()      {}
+func (*RwxUnifiedRemnawaveBadRequestErrorDto) usersControllerCreateUserRes()                     {}
+func (*RwxUnifiedRemnawaveBadRequestErrorDto) usersControllerDisableUserRes()                    {}
+func (*RwxUnifiedRemnawaveBadRequestErrorDto) usersControllerEnableUserRes()                     {}
+func (*RwxUnifiedRemnawaveBadRequestErrorDto) usersControllerGetUserByIdRes()                    {}
+func (*RwxUnifiedRemnawaveBadRequestErrorDto) usersControllerGetUserByUsernameRes()              {}
+func (*RwxUnifiedRemnawaveBadRequestErrorDto) usersControllerRevokeUserSubscriptionRes()         {}
+func (*RwxUnifiedRemnawaveBadRequestErrorDto) usersControllerUpdateUserRes()                     {}
+
+type RwxUnifiedRemnawaveBadRequestErrorDtoErrorsItem struct {
+	// Validation type, e.g. `uuid`.
+	Validation string `json:"validation"`
+	// Zod issue code, e.g. `invalid_string`.
+	Code string `json:"code"`
+	// Human-readable issue message.
+	Message string `json:"message"`
+	// Path to the field that failed validation.
+	Path []string `json:"path"`
 }
 
-// GetTags returns the value of Tags.
-func (s *UpdateInternalSquadResponseDtoResponse) GetTags() []string {
-	return s.Tags
+// GetValidation returns the value of Validation.
+func (s *RwxUnifiedRemnawaveBadRequestErrorDtoErrorsItem) GetValidation() string {
+	return s.Validation
 }
 
-// GetInfo returns the value of Info.
-func (s *UpdateInternalSquadResponseDtoResponse) GetInfo() UpdateInternalSquadResponseDtoResponseInfo {
-	return s.Info
+// GetCode returns the value of Code.
+func (s *RwxUnifiedRemnawaveBadRequestErrorDtoErrorsItem) GetCode() string {
+	return s.Code
 }
 
-// GetInbounds returns the value of Inbounds.
-func (s *UpdateInternalSquadResponseDtoResponse) GetInbounds() []UpdateInternalSquadResponseDtoResponseInboundsItem {
-	return s.Inbounds
+// GetMessage returns the value of Message.
+func (s *RwxUnifiedRemnawaveBadRequestErrorDtoErrorsItem) GetMessage() string {
+	return s.Message
 }
 
-// GetCreatedAt returns the value of CreatedAt.
-func (s *UpdateInternalSquadResponseDtoResponse) GetCreatedAt() time.Time {
-	return s.CreatedAt
+// GetPath returns the value of Path.
+func (s *RwxUnifiedRemnawaveBadRequestErrorDtoErrorsItem) GetPath() []string {
+	return s.Path
 }
 
-// GetUpdatedAt returns the value of UpdatedAt.
-func (s *UpdateInternalSquadResponseDtoResponse) GetUpdatedAt() time.Time {
-	return s.UpdatedAt
+// SetValidation sets the value of Validation.
+func (s *RwxUnifiedRemnawaveBadRequestErrorDtoErrorsItem) SetValidation(val string) {
+	s.Validation = val
 }
 
-// SetUUID sets the value of UUID.
-func (s *UpdateInternalSquadResponseDtoResponse) SetUUID(val uuid.UUID) {
-	s.UUID = val
+// SetCode sets the value of Code.
+func (s *RwxUnifiedRemnawaveBadRequestErrorDtoErrorsItem) SetCode(val string) {
+	s.Code = val
 }
 
-// SetViewPosition sets the value of ViewPosition.
-func (s *UpdateInternalSquadResponseDtoResponse) SetViewPosition(val int) {
-	s.ViewPosition = val
+// SetMessage sets the value of Message.
+func (s *RwxUnifiedRemnawaveBadRequestErrorDtoErrorsItem) SetMessage(val string) {
+	s.Message = val
 }
 
-// SetName sets the value of Name.
-func (s *UpdateInternalSquadResponseDtoResponse) SetName(val string) {
-	s.Name = val
-}
-
-// SetTags sets the value of Tags.
-func (s *UpdateInternalSquadResponseDtoResponse) SetTags(val []string) {
-	s.Tags = val
-}
-
-// SetInfo sets the value of Info.
-func (s *UpdateInternalSquadResponseDtoResponse) SetInfo(val UpdateInternalSquadResponseDtoResponseInfo) {
-	s.Info = val
-}
-
-// SetInbounds sets the value of Inbounds.
-func (s *UpdateInternalSquadResponseDtoResponse) SetInbounds(val []UpdateInternalSquadResponseDtoResponseInboundsItem) {
-	s.Inbounds = val
-}
-
-// SetCreatedAt sets the value of CreatedAt.
-func (s *UpdateInternalSquadResponseDtoResponse) SetCreatedAt(val time.Time) {
-	s.CreatedAt = val
-}
-
-// SetUpdatedAt sets the value of UpdatedAt.
-func (s *UpdateInternalSquadResponseDtoResponse) SetUpdatedAt(val time.Time) {
-	s.UpdatedAt = val
-}
-
-type UpdateInternalSquadResponseDtoResponseInboundsItem struct {
-	UUID        uuid.UUID  `json:"uuid"`
-	ProfileUuid uuid.UUID  `json:"profileUuid"`
-	Tag         string     `json:"tag"`
-	Type        string     `json:"type"`
-	Network     NilString  `json:"network"`
-	Security    NilString  `json:"security"`
-	Port        NilFloat64 `json:"port"`
-	RawInbound  jx.Raw     `json:"rawInbound"`
-}
-
-// GetUUID returns the value of UUID.
-func (s *UpdateInternalSquadResponseDtoResponseInboundsItem) GetUUID() uuid.UUID {
-	return s.UUID
-}
-
-// GetProfileUuid returns the value of ProfileUuid.
-func (s *UpdateInternalSquadResponseDtoResponseInboundsItem) GetProfileUuid() uuid.UUID {
-	return s.ProfileUuid
-}
-
-// GetTag returns the value of Tag.
-func (s *UpdateInternalSquadResponseDtoResponseInboundsItem) GetTag() string {
-	return s.Tag
-}
-
-// GetType returns the value of Type.
-func (s *UpdateInternalSquadResponseDtoResponseInboundsItem) GetType() string {
-	return s.Type
-}
-
-// GetNetwork returns the value of Network.
-func (s *UpdateInternalSquadResponseDtoResponseInboundsItem) GetNetwork() NilString {
-	return s.Network
-}
-
-// GetSecurity returns the value of Security.
-func (s *UpdateInternalSquadResponseDtoResponseInboundsItem) GetSecurity() NilString {
-	return s.Security
-}
-
-// GetPort returns the value of Port.
-func (s *UpdateInternalSquadResponseDtoResponseInboundsItem) GetPort() NilFloat64 {
-	return s.Port
-}
-
-// GetRawInbound returns the value of RawInbound.
-func (s *UpdateInternalSquadResponseDtoResponseInboundsItem) GetRawInbound() jx.Raw {
-	return s.RawInbound
-}
-
-// SetUUID sets the value of UUID.
-func (s *UpdateInternalSquadResponseDtoResponseInboundsItem) SetUUID(val uuid.UUID) {
-	s.UUID = val
-}
-
-// SetProfileUuid sets the value of ProfileUuid.
-func (s *UpdateInternalSquadResponseDtoResponseInboundsItem) SetProfileUuid(val uuid.UUID) {
-	s.ProfileUuid = val
-}
-
-// SetTag sets the value of Tag.
-func (s *UpdateInternalSquadResponseDtoResponseInboundsItem) SetTag(val string) {
-	s.Tag = val
-}
-
-// SetType sets the value of Type.
-func (s *UpdateInternalSquadResponseDtoResponseInboundsItem) SetType(val string) {
-	s.Type = val
-}
-
-// SetNetwork sets the value of Network.
-func (s *UpdateInternalSquadResponseDtoResponseInboundsItem) SetNetwork(val NilString) {
-	s.Network = val
-}
-
-// SetSecurity sets the value of Security.
-func (s *UpdateInternalSquadResponseDtoResponseInboundsItem) SetSecurity(val NilString) {
-	s.Security = val
-}
-
-// SetPort sets the value of Port.
-func (s *UpdateInternalSquadResponseDtoResponseInboundsItem) SetPort(val NilFloat64) {
-	s.Port = val
-}
-
-// SetRawInbound sets the value of RawInbound.
-func (s *UpdateInternalSquadResponseDtoResponseInboundsItem) SetRawInbound(val jx.Raw) {
-	s.RawInbound = val
-}
-
-type UpdateInternalSquadResponseDtoResponseInfo struct {
-	MembersCount  float64 `json:"membersCount"`
-	InboundsCount float64 `json:"inboundsCount"`
-}
-
-// GetMembersCount returns the value of MembersCount.
-func (s *UpdateInternalSquadResponseDtoResponseInfo) GetMembersCount() float64 {
-	return s.MembersCount
-}
-
-// GetInboundsCount returns the value of InboundsCount.
-func (s *UpdateInternalSquadResponseDtoResponseInfo) GetInboundsCount() float64 {
-	return s.InboundsCount
-}
-
-// SetMembersCount sets the value of MembersCount.
-func (s *UpdateInternalSquadResponseDtoResponseInfo) SetMembersCount(val float64) {
-	s.MembersCount = val
-}
-
-// SetInboundsCount sets the value of InboundsCount.
-func (s *UpdateInternalSquadResponseDtoResponseInfo) SetInboundsCount(val float64) {
-	s.InboundsCount = val
+// SetPath sets the value of Path.
+func (s *RwxUnifiedRemnawaveBadRequestErrorDtoErrorsItem) SetPath(val []string) {
+	s.Path = val
 }
 
 // Ref: #/components/schemas/UpdateUserBodyDto
@@ -7017,70 +6281,4 @@ func (s *UserResponseDtoResponseUserTraffic) SetFirstConnectedAt(val NilDateTime
 // SetLastConnectedNodeUuid sets the value of LastConnectedNodeUuid.
 func (s *UserResponseDtoResponseUserTraffic) SetLastConnectedNodeUuid(val NilUUID) {
 	s.LastConnectedNodeUuid = val
-}
-
-// UsersControllerDeleteUserNoContent is response for UsersControllerDeleteUser operation.
-type UsersControllerDeleteUserNoContent struct{}
-
-func (*UsersControllerDeleteUserNoContent) usersControllerDeleteUserRes() {}
-
-type UsersControllerGetUsersFilterModes map[string]string
-
-func (s *UsersControllerGetUsersFilterModes) init() UsersControllerGetUsersFilterModes {
-	m := *s
-	if m == nil {
-		m = map[string]string{}
-		*s = m
-	}
-	return m
-}
-
-type UsersControllerGetUsersFiltersItem struct {
-	ID    string `json:"id"`
-	Value jx.Raw `json:"value"`
-}
-
-// GetID returns the value of ID.
-func (s *UsersControllerGetUsersFiltersItem) GetID() string {
-	return s.ID
-}
-
-// GetValue returns the value of Value.
-func (s *UsersControllerGetUsersFiltersItem) GetValue() jx.Raw {
-	return s.Value
-}
-
-// SetID sets the value of ID.
-func (s *UsersControllerGetUsersFiltersItem) SetID(val string) {
-	s.ID = val
-}
-
-// SetValue sets the value of Value.
-func (s *UsersControllerGetUsersFiltersItem) SetValue(val jx.Raw) {
-	s.Value = val
-}
-
-type UsersControllerGetUsersSortingItem struct {
-	ID   string `json:"id"`
-	Desc bool   `json:"desc"`
-}
-
-// GetID returns the value of ID.
-func (s *UsersControllerGetUsersSortingItem) GetID() string {
-	return s.ID
-}
-
-// GetDesc returns the value of Desc.
-func (s *UsersControllerGetUsersSortingItem) GetDesc() bool {
-	return s.Desc
-}
-
-// SetID sets the value of ID.
-func (s *UsersControllerGetUsersSortingItem) SetID(val string) {
-	s.ID = val
-}
-
-// SetDesc sets the value of Desc.
-func (s *UsersControllerGetUsersSortingItem) SetDesc(val bool) {
-	s.Desc = val
 }

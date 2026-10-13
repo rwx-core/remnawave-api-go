@@ -25,30 +25,33 @@ import pathlib
 import sys
 
 # Paths rwx-store calls, grouped by what the adapter does with them. Keep the
-# trailing comment honest — it is the reason the path is in this list.
+# trailing comment honest — it is the reason the operation is in this list.
+# The client exposes exactly these calls and nothing else: a path item may
+# declare several operations and rwx-store is not obliged to inherit all of them.
 OPERATIONS = {
     # user lifecycle
-    "/api/users": "create, update, list",
-    "/api/users/{userId}": "read, delete",
-    "/api/users/{userId}/actions/enable": "enable",
-    "/api/users/{userId}/actions/disable": "disable",
-    "/api/users/{userId}/actions/revoke": "revoke subscription",
-    "/api/users/by-username/{username}": "lookup by username",
+    "/api/users": {"post", "patch"},  # grant access, change it
+    "/api/users/{userId}": {"get"},  # read state
+    "/api/users/{userId}/actions/enable": {"post"},
+    "/api/users/{userId}/actions/disable": {"post"},
+    "/api/users/{userId}/actions/revoke": {"post"},  # rotate the link
+    "/api/users/by-username/{username}": {"get"},  # idempotent creation
     # device hygiene
-    "/api/hwid/devices/{userId}": "list devices",
+    "/api/hwid/devices/{userId}": {"get"},
+    "/api/hwid/devices/delete": {"post"},  # unbind one device
     # squad catalogue
-    "/api/internal-squads": "list squads",
+    "/api/internal-squads": {"get"},
 }
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 
-# Parameters whose declared type the vendor got wrong. In 3.4.5 the panel
-# specification types these identifiers as `number` with no integer format, so
-# ogen renders a float into the path: GET /api/users/12345 is sent as
-# /api/users/12345.0000000000 and the panel rejects it. The 3.4.4
-# specification said `integer`, and the panel takes an integer (rwx-store's
-# adapter passes int64 and the live panel accepts it), so this is a vendor
-# regression that we correct here instead of propagating.
+# Parameters whose declared type the vendor got wrong. The 3.4.5 specification
+# types these identifiers as `number` with no integer format, and ogen renders a
+# number as a fixed-point float: GET /api/users/12345 is sent as
+# /api/users/12345.0000000000, which the panel rejects. The 3.4.4 specification
+# said `integer`, so this is a vendor regression — and ogen's own `infer_types`
+# does not rescue it (checked: with the flag the parameter still comes out as a
+# float). Correcting it here is the point of owning the client.
 INTEGER_PARAMS = {
     "userId": {"type": "integer", "format": "int64"},
 }
@@ -81,19 +84,83 @@ def collect_refs(node, into):
             collect_refs(item, into)
 
 
-def drop_union_responses(methods, path, dropped):
-    """Remove responses whose body is a union, recording each removal."""
+def merge_union(members, schemas):
+    """Flatten a union of named object schemas into one object schema.
+
+    The panel answers business failures and validation failures with different
+    shapes, and the specification offers them as an untyped `oneOf`, which ogen
+    cannot discriminate. A JSON reader does not care: it reads whichever fields
+    the answer actually carries. So the union becomes a single object holding
+    the union of its members' properties, with every constraint kept only where
+    all members agree.
+
+    That last part is not tidiness. The business variant pins `message` to an
+    enumerated list of strings, the validation variant does not, and ogen
+    validates enums while decoding — merging naively makes every message outside
+    that list a decode error, and a routine 400 stops explaining itself. Every
+    property and constraint here still comes from the vendor's own schemas;
+    nothing is invented.
+    """
+    properties, declared = {}, {}
+    required = None
+    for name in members:
+        member = schemas.get(name) or {}
+        own_properties = member.get("properties") or {}
+        for key, value in own_properties.items():
+            declared.setdefault(key, []).append(value)
+            properties.setdefault(key, value)
+        own = member.get("required")
+        required = (
+            set(own)
+            if required is None and own
+            else (set(own) & required if own and required is not None else set())
+        )
+
+    for key, seen in declared.items():
+        merged_property = dict(properties[key])
+        for constraint in ("enum", "format"):
+            values = {json.dumps(item.get(constraint), sort_keys=True) for item in seen}
+            # A constraint survives only if every member declares this property
+            # and all of them declare the same constraint.
+            if len(seen) != len(members) or len(values) > 1:
+                merged_property.pop(constraint, None)
+        properties[key] = merged_property
+
+    merged = {"type": "object", "properties": properties}
+    if required:
+        merged["required"] = sorted(required)
+    return merged
+
+
+def flatten_union_responses(methods, path, schemas, flattened, created):
+    """Replace every union response body with a reference to a merged schema."""
     for method, operation in methods.items():
         if not isinstance(operation, dict):
             continue
-        responses = operation.get("responses") or {}
-        for status, response in list(responses.items()):
+        for status, response in (operation.get("responses") or {}).items():
             for media in (response.get("content") or {}).values():
                 schema = media.get("schema") or {}
-                if "oneOf" in schema or "anyOf" in schema:
-                    del responses[status]
-                    dropped.append(f"{method.upper():6} {path} -> {status}")
-                    break
+                union = schema.get("oneOf") or schema.get("anyOf")
+                if not union:
+                    continue
+                members = tuple(
+                    sorted(
+                        item["$ref"].split("/")[-1]
+                        for item in union
+                        if isinstance(item, dict) and "$ref" in item
+                    )
+                )
+                if not members or len(members) != len(union):
+                    raise SystemExit(
+                        f"{method.upper()} {path} -> {status}: cannot flatten a union "
+                        "whose members are inline schemas"
+                    )
+                name = "RwxUnified" + members[0]
+                if name not in schemas:
+                    schemas[name] = merge_union(members, schemas)
+                    created.append(name)
+                flattened.append(f"{method.upper():6} {path} -> {status}")
+                media["schema"] = {"$ref": f"#/components/schemas/{name}"}
 
 
 def main(source, target):
@@ -101,26 +168,36 @@ def main(source, target):
     schemas = (doc.get("components") or {}).get("schemas") or {}
     paths = doc.get("paths") or {}
 
-    absent = sorted(set(OPERATIONS) - set(paths))
+    absent = []
+    for path, wanted in OPERATIONS.items():
+        present = set(paths.get(path) or {})
+        for method in sorted(wanted - present):
+            absent.append(f"{method.upper()} {path}")
     if absent:
         sys.exit(
-            "These operations are absent from " + str(source) + ":\n  "
+            "These operations are absent from "
+            + str(source)
+            + ":\n  "
             + "\n  ".join(absent)
             + "\nThe panel changed its API. Update OPERATIONS before regenerating."
         )
 
     keep = set()
     kept_paths = {}
-    for path in OPERATIONS:
-        methods = paths[path]
-        kept_paths[path] = methods
-        collect_refs(methods, keep)
-
-    dropped = []
+    flattened = []
+    created = []
     corrected = 0
-    for path, methods in kept_paths.items():
-        drop_union_responses(methods, path, dropped)
+    for path, wanted in OPERATIONS.items():
+        item = paths[path]
+        methods = {m: v for m, v in item.items() if m in wanted}
+        # Parameters may live on the path item itself and apply to every
+        # operation; keeping them is what makes the path template resolvable.
+        if "parameters" in item:
+            methods["parameters"] = item["parameters"]
+        kept_paths[path] = methods
+        flatten_union_responses(methods, path, schemas, flattened, created)
         corrected += apply_integer_overrides(methods)
+        collect_refs(methods, keep)
 
     # Transitive closure: a kept schema references more schemas.
     while True:
@@ -159,9 +236,9 @@ def main(source, target):
     )
     print(f"paths {len(paths)} -> {len(kept_paths)} ({operations} operations)")
     print(f"schemas {len(schemas)} -> {len(components['schemas'])}")
-    print(f"union error responses dropped: {len(dropped)}")
+    print(f"union responses flattened: {len(flattened)}, schemas created: {len(created)}")
     print(f"integer param corrections: {corrected}")
-    for line in dropped:
+    for line in flattened:
         print(f"  {line}")
 
 

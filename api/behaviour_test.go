@@ -48,49 +48,105 @@ func newClient(t *testing.T, status int, body string, seenPath *string) *api.Cli
 
 // TestUserIDPathHasNoDecimals guards the vendor's `type: number` mistake: an
 // identifier rendered as a float reaches the panel as `12345.0000000000`, which
-// it rejects, so the request silently never works.
+// it rejects, so the request silently never works. The 404 arrives as a typed
+// result, not an error — the client models that status.
 func TestUserIDPathHasNoDecimals(t *testing.T) {
 	t.Parallel()
 
 	var path string
-	client := newClient(t, http.StatusNotFound, `{}`, &path)
+	client := newClient(t, http.StatusNotFound, `{"timestamp":"2026-10-13T10:00:00Z","path":"/api/users/12345","message":"User not found","errorCode":"A025"}`, &path)
 
-	_, err := client.UsersControllerGetUserById(t.Context(), api.UsersControllerGetUserByIdParams{UserId: 12345})
-	if err == nil {
-		t.Fatal("want an error from a 404 response, got nil")
+	res, err := client.UsersControllerGetUserById(t.Context(), api.UsersControllerGetUserByIdParams{UserId: 12345})
+	if err != nil {
+		t.Fatalf("404 is a modelled status, want a typed result, got error: %v", err)
+	}
+	if _, ok := res.(*api.RemnawaveNotFoundErrorDto); !ok {
+		t.Errorf("result = %T, want *api.RemnawaveNotFoundErrorDto", res)
 	}
 	if want := "/api/users/12345"; path != want {
 		t.Errorf("request path = %q, want %q", path, want)
 	}
 }
 
-// TestErrorBodyStaysReachable documents the boundary this client leaves to its
-// callers: error bodies are not modelled, so a non-2xx answer arrives as an
-// *validate.UnexpectedStatusCodeError whose payload still carries the body.
-// Callers decode it against the published specification themselves.
-func TestErrorBodyStaysReachable(t *testing.T) {
+// TestBadRequestDecodesBothErrorShapes covers the flattening done in
+// tools/trim-spec.py. The panel answers business failures
+// ({timestamp, path, message, errorCode}) and validation failures
+// ({message, statusCode, errors}) with the same status code, and the
+// specification offers them as an untyped oneOf that ogen cannot generate.
+// Flattened into one schema, both must decode — otherwise a routine 400 turns
+// into an opaque decode error and the operator loses the message.
+//
+// The issue fields below are the ones the specification declares required for a
+// validation entry; a body that drops them would fail to decode, which is the
+// vendor's strictness, kept on purpose.
+func TestBadRequestDecodesBothErrorShapes(t *testing.T) {
 	t.Parallel()
 
-	const want = `{"message":"плохой запрос","errors":[{"path":["username"],"message":"занято"}]}`
-	client := newClient(t, http.StatusBadRequest, want, new(string))
+	t.Run("business error", func(t *testing.T) {
+		t.Parallel()
+		const body = `{"timestamp":"2026-10-13T10:00:00Z","path":"/api/users","message":"занято","errorCode":"USER_EXISTS"}`
+		client := newClient(t, http.StatusBadRequest, body, new(string))
+
+		res, err := client.UsersControllerCreateUser(t.Context(), &api.CreateUserBodyDto{
+			Username: "rwx-1", ExpireAt: "2026-10-13T10:00:00.000Z",
+		})
+		if err != nil {
+			t.Fatalf("want a typed result, got error: %v", err)
+		}
+		bad, ok := res.(*api.RwxUnifiedRemnawaveBadRequestErrorDto)
+		if !ok {
+			t.Fatalf("result = %T, want *api.RwxUnifiedRemnawaveBadRequestErrorDto", res)
+		}
+		if got := string(bad.Message); got != "занято" {
+			t.Errorf("message = %q, want %q", got, "занято")
+		}
+		if got := bad.ErrorCode.Value; got != "USER_EXISTS" {
+			t.Errorf("errorCode = %q, want %q", got, "USER_EXISTS")
+		}
+	})
+
+	t.Run("validation error", func(t *testing.T) {
+		t.Parallel()
+		const body = `{"message":"Bad request","statusCode":400,"errors":[{"validation":"uuid","code":"invalid_string","message":"Invalid uuid","path":["uuid"]}]}`
+		client := newClient(t, http.StatusBadRequest, body, new(string))
+
+		res, err := client.UsersControllerCreateUser(t.Context(), &api.CreateUserBodyDto{
+			Username: "rwx-1", ExpireAt: "2026-10-13T10:00:00.000Z",
+		})
+		if err != nil {
+			t.Fatalf("want a typed result, got error: %v", err)
+		}
+		bad, ok := res.(*api.RwxUnifiedRemnawaveBadRequestErrorDto)
+		if !ok {
+			t.Fatalf("result = %T, want *api.RwxUnifiedRemnawaveBadRequestErrorDto", res)
+		}
+		if len(bad.Errors) != 1 {
+			t.Fatalf("errors = %d, want 1", len(bad.Errors))
+		}
+		if got := bad.Errors[0].Path; len(got) != 1 || got[0] != "uuid" {
+			t.Errorf("errors[0].path = %v, want [uuid]", got)
+		}
+	})
+}
+
+// TestUnexpectedStatusStaysReachable covers statuses the specification does not
+// model — 503 here, the proxy case rwx-store retries on. The panel can answer
+// with something the document never promised, and both the status code and the
+// body still have to reach the caller instead of vanishing into a decode failure.
+func TestUnexpectedStatusStaysReachable(t *testing.T) {
+	t.Parallel()
+
+	client := newClient(t, http.StatusServiceUnavailable, `{"message":"панель недоступна"}`, new(string))
 
 	_, err := client.UsersControllerGetUserById(t.Context(), api.UsersControllerGetUserByIdParams{UserId: 12345})
 	if err == nil {
-		t.Fatal("want an error from a 400 response, got nil")
+		t.Fatal("want an error from an unmodelled 503 response, got nil")
 	}
-
 	var unexpected *validate.UnexpectedStatusCodeError
 	if !errors.As(err, &unexpected) {
 		t.Fatalf("error %v (%T) does not carry *validate.UnexpectedStatusCodeError", err, err)
 	}
-	if unexpected.StatusCode != http.StatusBadRequest {
-		t.Errorf("StatusCode = %d, want %d", unexpected.StatusCode, http.StatusBadRequest)
-	}
-	body, readErr := io.ReadAll(unexpected.Payload.Body)
-	if readErr != nil {
-		t.Fatalf("read error body: %v", readErr)
-	}
-	if string(body) != want {
-		t.Errorf("body = %s, want %s", body, want)
+	if unexpected.StatusCode != http.StatusServiceUnavailable {
+		t.Errorf("StatusCode = %d, want %d", unexpected.StatusCode, http.StatusServiceUnavailable)
 	}
 }

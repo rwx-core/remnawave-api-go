@@ -6,17 +6,14 @@ package api
 type OperationName = string
 
 const (
-	HwidUserDevicesControllerGetUserHwidDevicesOperation OperationName = "HwidUserDevicesControllerGetUserHwidDevices"
-	InternalSquadControllerCreateInternalSquadOperation  OperationName = "InternalSquadControllerCreateInternalSquad"
-	InternalSquadControllerGetInternalSquadsOperation    OperationName = "InternalSquadControllerGetInternalSquads"
-	InternalSquadControllerUpdateInternalSquadOperation  OperationName = "InternalSquadControllerUpdateInternalSquad"
-	UsersControllerCreateUserOperation                   OperationName = "UsersControllerCreateUser"
-	UsersControllerDeleteUserOperation                   OperationName = "UsersControllerDeleteUser"
-	UsersControllerDisableUserOperation                  OperationName = "UsersControllerDisableUser"
-	UsersControllerEnableUserOperation                   OperationName = "UsersControllerEnableUser"
-	UsersControllerGetUserByIdOperation                  OperationName = "UsersControllerGetUserById"
-	UsersControllerGetUserByUsernameOperation            OperationName = "UsersControllerGetUserByUsername"
-	UsersControllerGetUsersOperation                     OperationName = "UsersControllerGetUsers"
-	UsersControllerRevokeUserSubscriptionOperation       OperationName = "UsersControllerRevokeUserSubscription"
-	UsersControllerUpdateUserOperation                   OperationName = "UsersControllerUpdateUser"
+	HwidUserDevicesControllerDeleteUserHwidDeviceOperation OperationName = "HwidUserDevicesControllerDeleteUserHwidDevice"
+	HwidUserDevicesControllerGetUserHwidDevicesOperation   OperationName = "HwidUserDevicesControllerGetUserHwidDevices"
+	InternalSquadControllerGetInternalSquadsOperation      OperationName = "InternalSquadControllerGetInternalSquads"
+	UsersControllerCreateUserOperation                     OperationName = "UsersControllerCreateUser"
+	UsersControllerDisableUserOperation                    OperationName = "UsersControllerDisableUser"
+	UsersControllerEnableUserOperation                     OperationName = "UsersControllerEnableUser"
+	UsersControllerGetUserByIdOperation                    OperationName = "UsersControllerGetUserById"
+	UsersControllerGetUserByUsernameOperation              OperationName = "UsersControllerGetUserByUsername"
+	UsersControllerRevokeUserSubscriptionOperation         OperationName = "UsersControllerRevokeUserSubscription"
+	UsersControllerUpdateUserOperation                     OperationName = "UsersControllerUpdateUser"
 )

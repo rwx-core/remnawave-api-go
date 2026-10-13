@@ -8,42 +8,30 @@ import (
 
 // Handler handles operations described by OpenAPI v3 specification.
 type Handler interface {
+	// HwidUserDevicesControllerDeleteUserHwidDevice implements HwidUserDevicesController_deleteUserHwidDevice operation.
+	//
+	// Delete a user HWID device.
+	//
+	// POST /api/hwid/devices/delete
+	HwidUserDevicesControllerDeleteUserHwidDevice(ctx context.Context, req *DeleteUserHwidDeviceBodyDto) (HwidUserDevicesControllerDeleteUserHwidDeviceRes, error)
 	// HwidUserDevicesControllerGetUserHwidDevices implements HwidUserDevicesController_getUserHwidDevices operation.
 	//
 	// Get user HWID devices.
 	//
 	// GET /api/hwid/devices/{userId}
 	HwidUserDevicesControllerGetUserHwidDevices(ctx context.Context, params HwidUserDevicesControllerGetUserHwidDevicesParams) (HwidUserDevicesControllerGetUserHwidDevicesRes, error)
-	// InternalSquadControllerCreateInternalSquad implements InternalSquadController_createInternalSquad operation.
-	//
-	// Create internal squad.
-	//
-	// POST /api/internal-squads
-	InternalSquadControllerCreateInternalSquad(ctx context.Context, req *CreateInternalSquadBodyDto) (InternalSquadControllerCreateInternalSquadRes, error)
 	// InternalSquadControllerGetInternalSquads implements InternalSquadController_getInternalSquads operation.
 	//
 	// Get all internal squads.
 	//
 	// GET /api/internal-squads
 	InternalSquadControllerGetInternalSquads(ctx context.Context) (InternalSquadControllerGetInternalSquadsRes, error)
-	// InternalSquadControllerUpdateInternalSquad implements InternalSquadController_updateInternalSquad operation.
-	//
-	// Update internal squad.
-	//
-	// PATCH /api/internal-squads
-	InternalSquadControllerUpdateInternalSquad(ctx context.Context, req *UpdateInternalSquadBodyDto) (InternalSquadControllerUpdateInternalSquadRes, error)
 	// UsersControllerCreateUser implements UsersController_createUser operation.
 	//
 	// Create a new user.
 	//
 	// POST /api/users
 	UsersControllerCreateUser(ctx context.Context, req *CreateUserBodyDto) (UsersControllerCreateUserRes, error)
-	// UsersControllerDeleteUser implements UsersController_deleteUser operation.
-	//
-	// Delete user.
-	//
-	// DELETE /api/users/{userId}
-	UsersControllerDeleteUser(ctx context.Context, params UsersControllerDeleteUserParams) (UsersControllerDeleteUserRes, error)
 	// UsersControllerDisableUser implements UsersController_disableUser operation.
 	//
 	// Disable user.
@@ -68,14 +56,6 @@ type Handler interface {
 	//
 	// GET /api/users/by-username/{username}
 	UsersControllerGetUserByUsername(ctx context.Context, params UsersControllerGetUserByUsernameParams) (UsersControllerGetUserByUsernameRes, error)
-	// UsersControllerGetUsers implements UsersController_getUsers operation.
-	//
-	// Please note that the filters here are primarily intended for use by the frontend and rely on
-	// expensive operators such as LIKE under the hood. Misusing these filters may negatively impact the
-	// performance of your database.
-	//
-	// GET /api/users
-	UsersControllerGetUsers(ctx context.Context, params UsersControllerGetUsersParams) (UsersControllerGetUsersRes, error)
 	// UsersControllerRevokeUserSubscription implements UsersController_revokeUserSubscription operation.
 	//
 	// Revoke user subscription.

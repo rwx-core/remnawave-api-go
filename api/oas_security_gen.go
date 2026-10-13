@@ -35,19 +35,16 @@ func findAuthorization(h http.Header, prefix string) (string, bool) {
 
 // operationRolesAuthorization is a private map storing roles per operation.
 var operationRolesAuthorization = map[string][]string{
-	HwidUserDevicesControllerGetUserHwidDevicesOperation: []string{},
-	InternalSquadControllerCreateInternalSquadOperation:  []string{},
-	InternalSquadControllerGetInternalSquadsOperation:    []string{},
-	InternalSquadControllerUpdateInternalSquadOperation:  []string{},
-	UsersControllerCreateUserOperation:                   []string{},
-	UsersControllerDeleteUserOperation:                   []string{},
-	UsersControllerDisableUserOperation:                  []string{},
-	UsersControllerEnableUserOperation:                   []string{},
-	UsersControllerGetUserByIdOperation:                  []string{},
-	UsersControllerGetUserByUsernameOperation:            []string{},
-	UsersControllerGetUsersOperation:                     []string{},
-	UsersControllerRevokeUserSubscriptionOperation:       []string{},
-	UsersControllerUpdateUserOperation:                   []string{},
+	HwidUserDevicesControllerDeleteUserHwidDeviceOperation: []string{},
+	HwidUserDevicesControllerGetUserHwidDevicesOperation:   []string{},
+	InternalSquadControllerGetInternalSquadsOperation:      []string{},
+	UsersControllerCreateUserOperation:                     []string{},
+	UsersControllerDisableUserOperation:                    []string{},
+	UsersControllerEnableUserOperation:                     []string{},
+	UsersControllerGetUserByIdOperation:                    []string{},
+	UsersControllerGetUserByUsernameOperation:              []string{},
+	UsersControllerRevokeUserSubscriptionOperation:         []string{},
+	UsersControllerUpdateUserOperation:                     []string{},
 }
 
 // GetRolesForAuthorization returns the required roles for the given operation.

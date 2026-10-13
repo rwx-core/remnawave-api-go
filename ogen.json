@@ -1,4 +1,7 @@
 {
+  "parser": {
+    "infer_types": true
+  },
   "generator": {
     "ignore_not_implemented": ["type-based discrimination with same jxType", "nested objects in form parameters"]
   }

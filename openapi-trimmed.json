@@ -32,6 +32,16 @@
        }
       }
      },
+     "400": {
+      "description": "Bad request / Validation error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/RwxUnifiedRemnawaveBadRequestErrorDto"
+        }
+       }
+      }
+     },
      "404": {
       "description": "Resource not found",
       "content": {
@@ -88,6 +98,16 @@
        }
       }
      },
+     "400": {
+      "description": "Bad request / Validation error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/RwxUnifiedRemnawaveBadRequestErrorDto"
+        }
+       }
+      }
+     },
      "404": {
       "description": "Resource not found",
       "content": {
@@ -118,193 +138,9 @@
     "tags": [
      "Users Controller"
     ]
-   },
-   "get": {
-    "description": "Please note that the filters here are primarily intended for use by the frontend and rely on expensive operators such as LIKE under the hood. Misusing these filters may negatively impact the performance of your database.",
-    "operationId": "UsersController_getUsers",
-    "parameters": [
-     {
-      "name": "start",
-      "required": false,
-      "in": "query",
-      "description": "Start index (offset) of the results to return, default is 0",
-      "schema": {
-       "default": 0,
-       "type": "number"
-      }
-     },
-     {
-      "name": "size",
-      "required": false,
-      "in": "query",
-      "description": "Number of results to return, no more than 1000",
-      "schema": {
-       "minimum": 1,
-       "maximum": 1000,
-       "default": 25,
-       "type": "number"
-      }
-     },
-     {
-      "name": "filters",
-      "required": false,
-      "in": "query",
-      "schema": {
-       "type": "array",
-       "items": {
-        "type": "object",
-        "properties": {
-         "id": {
-          "type": "string"
-         },
-         "value": {}
-        },
-        "required": [
-         "id",
-         "value"
-        ]
-       }
-      }
-     },
-     {
-      "name": "filterModes",
-      "required": false,
-      "in": "query",
-      "propertyNames": {
-       "type": "string"
-      },
-      "schema": {
-       "additionalProperties": {
-        "type": "string"
-       },
-       "type": "object"
-      },
-      "style": "deepObject"
-     },
-     {
-      "name": "globalFilterMode",
-      "required": false,
-      "in": "query",
-      "schema": {
-       "type": "string"
-      }
-     },
-     {
-      "name": "sorting",
-      "required": false,
-      "in": "query",
-      "schema": {
-       "type": "array",
-       "items": {
-        "type": "object",
-        "properties": {
-         "id": {
-          "type": "string"
-         },
-         "desc": {
-          "type": "boolean"
-         }
-        },
-        "required": [
-         "id",
-         "desc"
-        ]
-       }
-      }
-     }
-    ],
-    "responses": {
-     "200": {
-      "description": "Operation successful",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/GetUsersResponseDto"
-        }
-       }
-      }
-     },
-     "404": {
-      "description": "Resource not found",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/RemnawaveNotFoundErrorDto"
-        }
-       }
-      }
-     },
-     "500": {
-      "description": "Internal server error",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/RemnawaveInternalServerErrorDto"
-        }
-       }
-      }
-     }
-    },
-    "security": [
-     {
-      "Authorization": []
-     }
-    ],
-    "summary": "Get all users using offset-based pagination",
-    "tags": [
-     "Users Controller"
-    ]
    }
   },
   "/api/users/{userId}": {
-   "delete": {
-    "operationId": "UsersController_deleteUser",
-    "parameters": [
-     {
-      "name": "userId",
-      "required": true,
-      "in": "path",
-      "schema": {
-       "type": "integer",
-       "format": "int64"
-      }
-     }
-    ],
-    "responses": {
-     "204": {
-      "description": "Operation successful, no content returned"
-     },
-     "404": {
-      "description": "Resource not found",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/RemnawaveNotFoundErrorDto"
-        }
-       }
-      }
-     },
-     "500": {
-      "description": "Internal server error",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/RemnawaveInternalServerErrorDto"
-        }
-       }
-      }
-     }
-    },
-    "security": [
-     {
-      "Authorization": []
-     }
-    ],
-    "summary": "Delete user",
-    "tags": [
-     "Users Controller"
-    ]
-   },
    "get": {
     "operationId": "UsersController_getUserById",
     "parameters": [
@@ -325,6 +161,16 @@
        "application/json": {
         "schema": {
          "$ref": "#/components/schemas/UserResponseDto"
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "Bad request / Validation error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/RwxUnifiedRemnawaveBadRequestErrorDto"
         }
        }
       }
@@ -386,6 +232,16 @@
        }
       }
      },
+     "400": {
+      "description": "Bad request / Validation error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/RwxUnifiedRemnawaveBadRequestErrorDto"
+        }
+       }
+      }
+     },
      "404": {
       "description": "Resource not found",
       "content": {
@@ -439,6 +295,16 @@
        "application/json": {
         "schema": {
          "$ref": "#/components/schemas/UserResponseDto"
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "Bad request / Validation error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/RwxUnifiedRemnawaveBadRequestErrorDto"
         }
        }
       }
@@ -510,6 +376,16 @@
        }
       }
      },
+     "400": {
+      "description": "Bad request / Validation error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/RwxUnifiedRemnawaveBadRequestErrorDto"
+        }
+       }
+      }
+     },
      "404": {
       "description": "Resource not found",
       "content": {
@@ -562,6 +438,16 @@
        "application/json": {
         "schema": {
          "$ref": "#/components/schemas/UserResponseDto"
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "Bad request / Validation error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/RwxUnifiedRemnawaveBadRequestErrorDto"
         }
        }
       }
@@ -623,6 +509,16 @@
        }
       }
      },
+     "400": {
+      "description": "Bad request / Validation error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/RwxUnifiedRemnawaveBadRequestErrorDto"
+        }
+       }
+      }
+     },
      "404": {
       "description": "Resource not found",
       "content": {
@@ -655,6 +551,73 @@
     ]
    }
   },
+  "/api/hwid/devices/delete": {
+   "post": {
+    "operationId": "HwidUserDevicesController_deleteUserHwidDevice",
+    "parameters": [],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/DeleteUserHwidDeviceBodyDto"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Operation successful",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/DeleteUserHwidDeviceResponseDto"
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "Bad request / Validation error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/RwxUnifiedRemnawaveBadRequestErrorDto"
+        }
+       }
+      }
+     },
+     "404": {
+      "description": "Resource not found",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/RemnawaveNotFoundErrorDto"
+        }
+       }
+      }
+     },
+     "500": {
+      "description": "Internal server error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/RemnawaveInternalServerErrorDto"
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "Authorization": []
+     }
+    ],
+    "summary": "Delete a user HWID device",
+    "tags": [
+     "HWID User Devices Controller"
+    ]
+   }
+  },
   "/api/internal-squads": {
    "get": {
     "operationId": "InternalSquadController_getInternalSquads",
@@ -666,6 +629,16 @@
        "application/json": {
         "schema": {
          "$ref": "#/components/schemas/GetInternalSquadsResponseDto"
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "Bad request / Validation error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/RwxUnifiedRemnawaveBadRequestErrorDto"
         }
        }
       }
@@ -700,122 +673,6 @@
     "tags": [
      "Internal Squads Controller"
     ]
-   },
-   "post": {
-    "operationId": "InternalSquadController_createInternalSquad",
-    "parameters": [],
-    "requestBody": {
-     "required": true,
-     "content": {
-      "application/json": {
-       "schema": {
-        "$ref": "#/components/schemas/CreateInternalSquadBodyDto"
-       }
-      }
-     }
-    },
-    "responses": {
-     "201": {
-      "description": "Resource created successfully",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/CreateInternalSquadResponseDto"
-        }
-       }
-      }
-     },
-     "404": {
-      "description": "Resource not found",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/RemnawaveNotFoundErrorDto"
-        }
-       }
-      }
-     },
-     "409": {
-      "description": "Internal squad already exists"
-     },
-     "500": {
-      "description": "Internal server error",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/RemnawaveInternalServerErrorDto"
-        }
-       }
-      }
-     }
-    },
-    "security": [
-     {
-      "Authorization": []
-     }
-    ],
-    "summary": "Create internal squad",
-    "tags": [
-     "Internal Squads Controller"
-    ]
-   },
-   "patch": {
-    "operationId": "InternalSquadController_updateInternalSquad",
-    "parameters": [],
-    "requestBody": {
-     "required": true,
-     "content": {
-      "application/json": {
-       "schema": {
-        "$ref": "#/components/schemas/UpdateInternalSquadBodyDto"
-       }
-      }
-     }
-    },
-    "responses": {
-     "200": {
-      "description": "Operation successful",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/UpdateInternalSquadResponseDto"
-        }
-       }
-      }
-     },
-     "404": {
-      "description": "Resource not found",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/RemnawaveNotFoundErrorDto"
-        }
-       }
-      }
-     },
-     "409": {
-      "description": "Internal squad already exists"
-     },
-     "500": {
-      "description": "Internal server error",
-      "content": {
-       "application/json": {
-        "schema": {
-         "$ref": "#/components/schemas/RemnawaveInternalServerErrorDto"
-        }
-       }
-      }
-     }
-    },
-    "security": [
-     {
-      "Authorization": []
-     }
-    ],
-    "summary": "Update internal squad",
-    "tags": [
-     "Internal Squads Controller"
-    ]
    }
   }
  },
@@ -836,145 +693,6 @@
    }
   },
   "schemas": {
-   "CreateInternalSquadBodyDto": {
-    "type": "object",
-    "properties": {
-     "name": {
-      "type": "string",
-      "minLength": 2,
-      "maxLength": 30,
-      "pattern": "^[A-Za-z0-9_\\s-]+$"
-     },
-     "inbounds": {
-      "type": "array",
-      "items": {
-       "type": "string",
-       "format": "uuid",
-       "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
-      }
-     }
-    },
-    "required": [
-     "name",
-     "inbounds"
-    ]
-   },
-   "CreateInternalSquadResponseDto": {
-    "type": "object",
-    "properties": {
-     "response": {
-      "type": "object",
-      "properties": {
-       "uuid": {
-        "type": "string",
-        "format": "uuid",
-        "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
-       },
-       "viewPosition": {
-        "type": "integer",
-        "minimum": -9007199254740991,
-        "maximum": 9007199254740991
-       },
-       "name": {
-        "type": "string"
-       },
-       "tags": {
-        "type": "array",
-        "items": {
-         "type": "string"
-        }
-       },
-       "info": {
-        "type": "object",
-        "properties": {
-         "membersCount": {
-          "type": "number"
-         },
-         "inboundsCount": {
-          "type": "number"
-         }
-        },
-        "required": [
-         "membersCount",
-         "inboundsCount"
-        ]
-       },
-       "inbounds": {
-        "type": "array",
-        "items": {
-         "type": "object",
-         "properties": {
-          "uuid": {
-           "type": "string",
-           "format": "uuid",
-           "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
-          },
-          "profileUuid": {
-           "type": "string",
-           "format": "uuid",
-           "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
-          },
-          "tag": {
-           "type": "string"
-          },
-          "type": {
-           "type": "string"
-          },
-          "network": {
-           "type": "string",
-           "nullable": true
-          },
-          "security": {
-           "type": "string",
-           "nullable": true
-          },
-          "port": {
-           "type": "number",
-           "nullable": true
-          },
-          "rawInbound": {
-           "nullable": true
-          }
-         },
-         "required": [
-          "uuid",
-          "profileUuid",
-          "tag",
-          "type",
-          "network",
-          "security",
-          "port",
-          "rawInbound"
-         ]
-        }
-       },
-       "createdAt": {
-        "type": "string",
-        "format": "date-time",
-        "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
-       },
-       "updatedAt": {
-        "type": "string",
-        "format": "date-time",
-        "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
-       }
-      },
-      "required": [
-       "uuid",
-       "viewPosition",
-       "name",
-       "tags",
-       "info",
-       "inbounds",
-       "createdAt",
-       "updatedAt"
-      ]
-     }
-    },
-    "required": [
-     "response"
-    ]
-   },
    "CreateUserBodyDto": {
     "type": "object",
     "properties": {
@@ -1099,6 +817,96 @@
     "required": [
      "username",
      "expireAt"
+    ]
+   },
+   "DeleteUserHwidDeviceBodyDto": {
+    "type": "object",
+    "properties": {
+     "userId": {
+      "type": "number"
+     },
+     "hwid": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "userId",
+     "hwid"
+    ]
+   },
+   "DeleteUserHwidDeviceResponseDto": {
+    "type": "object",
+    "properties": {
+     "response": {
+      "type": "object",
+      "properties": {
+       "total": {
+        "type": "number"
+       },
+       "devices": {
+        "type": "array",
+        "items": {
+         "type": "object",
+         "properties": {
+          "hwid": {
+           "type": "string"
+          },
+          "userId": {
+           "type": "number"
+          },
+          "platform": {
+           "type": "string",
+           "nullable": true
+          },
+          "osVersion": {
+           "type": "string",
+           "nullable": true
+          },
+          "deviceModel": {
+           "type": "string",
+           "nullable": true
+          },
+          "userAgent": {
+           "type": "string",
+           "nullable": true
+          },
+          "requestIp": {
+           "type": "string",
+           "nullable": true
+          },
+          "createdAt": {
+           "type": "string",
+           "format": "date-time",
+           "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+          },
+          "updatedAt": {
+           "type": "string",
+           "format": "date-time",
+           "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+          }
+         },
+         "required": [
+          "hwid",
+          "userId",
+          "platform",
+          "osVersion",
+          "deviceModel",
+          "userAgent",
+          "requestIp",
+          "createdAt",
+          "updatedAt"
+         ]
+        }
+       }
+      },
+      "required": [
+       "total",
+       "devices"
+      ]
+     }
+    },
+    "required": [
+     "response"
     ]
    },
    "GetInternalSquadsResponseDto": {
@@ -1305,336 +1113,6 @@
     },
     "required": [
      "response"
-    ]
-   },
-   "GetUsersResponseDto": {
-    "type": "object",
-    "properties": {
-     "response": {
-      "type": "object",
-      "properties": {
-       "users": {
-        "type": "array",
-        "items": {
-         "type": "object",
-         "properties": {
-          "id": {
-           "type": "number"
-          },
-          "shortUuid": {
-           "type": "string"
-          },
-          "username": {
-           "type": "string"
-          },
-          "status": {
-           "type": "string",
-           "enum": [
-            "ACTIVE",
-            "DISABLED",
-            "LIMITED",
-            "EXPIRED"
-           ]
-          },
-          "trafficLimitBytes": {
-           "type": "number"
-          },
-          "trafficLimitStrategy": {
-           "type": "string",
-           "enum": [
-            "NO_RESET",
-            "DAY",
-            "WEEK",
-            "MONTH",
-            "MONTH_ROLLING"
-           ],
-           "description": "Available reset periods"
-          },
-          "expireAt": {
-           "type": "string",
-           "format": "date-time",
-           "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
-          },
-          "telegramId": {
-           "type": "number",
-           "nullable": true
-          },
-          "email": {
-           "type": "string",
-           "format": "email",
-           "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$",
-           "nullable": true
-          },
-          "description": {
-           "type": "string",
-           "nullable": true
-          },
-          "tag": {
-           "type": "string",
-           "nullable": true
-          },
-          "hwidDeviceLimit": {
-           "type": "integer",
-           "minimum": -9007199254740991,
-           "maximum": 9007199254740991,
-           "nullable": true
-          },
-          "externalSquadUuid": {
-           "type": "string",
-           "format": "uuid",
-           "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$",
-           "nullable": true
-          },
-          "trojanPassword": {
-           "type": "string"
-          },
-          "vlessUuid": {
-           "type": "string",
-           "format": "uuid",
-           "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$"
-          },
-          "ssPassword": {
-           "type": "string"
-          },
-          "lastTriggeredThreshold": {
-           "type": "integer",
-           "minimum": -9007199254740991,
-           "maximum": 9007199254740991
-          },
-          "subRevokedAt": {
-           "type": "string",
-           "format": "date-time",
-           "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
-           "nullable": true
-          },
-          "lastTrafficResetAt": {
-           "type": "string",
-           "format": "date-time",
-           "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
-           "nullable": true
-          },
-          "createdAt": {
-           "type": "string",
-           "format": "date-time",
-           "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
-          },
-          "updatedAt": {
-           "type": "string",
-           "format": "date-time",
-           "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
-          },
-          "subscriptionUrl": {
-           "type": "string"
-          },
-          "activeInternalSquads": {
-           "type": "array",
-           "items": {
-            "type": "object",
-            "properties": {
-             "uuid": {
-              "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
-             },
-             "name": {
-              "type": "string"
-             }
-            },
-            "required": [
-             "uuid",
-             "name"
-            ]
-           }
-          },
-          "userTraffic": {
-           "type": "object",
-           "properties": {
-            "usedTrafficBytes": {
-             "type": "number"
-            },
-            "lifetimeUsedTrafficBytes": {
-             "type": "number"
-            },
-            "onlineAt": {
-             "type": "string",
-             "format": "date-time",
-             "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
-             "nullable": true
-            },
-            "firstConnectedAt": {
-             "type": "string",
-             "format": "date-time",
-             "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
-             "nullable": true
-            },
-            "lastConnectedNodeUuid": {
-             "type": "string",
-             "format": "uuid",
-             "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$",
-             "nullable": true
-            }
-           },
-           "required": [
-            "usedTrafficBytes",
-            "lifetimeUsedTrafficBytes",
-            "onlineAt",
-            "firstConnectedAt",
-            "lastConnectedNodeUuid"
-           ]
-          }
-         },
-         "required": [
-          "id",
-          "shortUuid",
-          "username",
-          "status",
-          "trafficLimitBytes",
-          "trafficLimitStrategy",
-          "expireAt",
-          "telegramId",
-          "email",
-          "description",
-          "tag",
-          "hwidDeviceLimit",
-          "externalSquadUuid",
-          "trojanPassword",
-          "vlessUuid",
-          "ssPassword",
-          "lastTriggeredThreshold",
-          "subRevokedAt",
-          "lastTrafficResetAt",
-          "createdAt",
-          "updatedAt",
-          "subscriptionUrl",
-          "activeInternalSquads",
-          "userTraffic"
-         ]
-        }
-       },
-       "total": {
-        "type": "number"
-       }
-      },
-      "required": [
-       "users",
-       "total"
-      ]
-     }
-    },
-    "required": [
-     "response"
-    ]
-   },
-   "RemnawaveBadRequestErrorDto": {
-    "type": "object",
-    "properties": {
-     "timestamp": {
-      "type": "string",
-      "description": "Time when the error occurred, in ISO 8601 format."
-     },
-     "path": {
-      "type": "string",
-      "description": "Path of the request that caused the error."
-     },
-     "message": {
-      "type": "string",
-      "enum": [
-       "User username already exists",
-       "User short UUID already exists",
-       "User subscription UUID already exists",
-       "User already disabled",
-       "User already enabled",
-       "Node name already exists",
-       "Node address already exists",
-       "Host remark already exists",
-       "LIMITED and EXPIRED statuses are not allowed to be set manually.",
-       "User hwid device already exists",
-       "User hwid device limit reached",
-       "This name is reserved by Remnawave. Please use a different name.",
-       "Node is disabled",
-       "Name or config is required",
-       "Name or inbounds is required",
-       "Snippet name already exists",
-       "Snippet cannot be empty",
-       "Snippet cannot contain empty objects",
-       "This name is reserved. Please use a different name.",
-       "Template JSON is not allowed for YAML template",
-       "Template YAML is not allowed for JSON template",
-       "Template JSON and YAML cannot be updated simultaneously",
-       "Template name already exists for this type",
-       "Reserved template cannot be deleted",
-       "Template type not allowed",
-       "External squad name already exists",
-       "Name or templates are required",
-       "Passkeys not configured",
-       "Passkeys not enabled. Please enable it first.",
-       "Reserved config name",
-       "Config name already exists",
-       "Reserved subpage config cannot be deleted",
-       "Invalid subscription page config",
-       "Invalid Remnawave injector",
-       "Node plugin name already exists",
-       "One or more provided API token scopes are invalid",
-       "Either nodeUuid or name must be provided",
-       "Start date must be before or equal to end date",
-       "Node integration name already exists",
-       "Shared list name already exists"
-      ],
-      "description": "Human-readable error message."
-     },
-     "errorCode": {
-      "type": "string",
-      "enum": [
-       "A019",
-       "A020",
-       "A021",
-       "A029",
-       "A030",
-       "A033",
-       "A034",
-       "A045",
-       "A089",
-       "A098",
-       "A099",
-       "A144",
-       "A145",
-       "A149",
-       "A152",
-       "A153",
-       "A164",
-       "A166",
-       "A167",
-       "A172",
-       "A173",
-       "A174",
-       "A175",
-       "A176",
-       "A178",
-       "A180",
-       "A189",
-       "A190",
-       "A194",
-       "A195",
-       "A209",
-       "A210",
-       "A212",
-       "A215",
-       "A216",
-       "A223",
-       "A229",
-       "A230",
-       "A235",
-       "A244",
-       "A246"
-      ],
-      "description": "Error code. Possible values:\n\n- `A019` — User username already exists\n- `A020` — User short UUID already exists\n- `A021` — User subscription UUID already exists\n- `A029` — User already disabled\n- `A030` — User already enabled\n- `A033` — Node name already exists\n- `A034` — Node address already exists\n- `A045` — Host remark already exists\n- `A089` — LIMITED and EXPIRED statuses are not allowed to be set manually.\n- `A098` — User hwid device already exists\n- `A099` — User hwid device limit reached\n- `A144` — This name is reserved by Remnawave. Please use a different name.\n- `A145` — This name is reserved by Remnawave. Please use a different name.\n- `A149` — Node is disabled\n- `A152` — Name or config is required\n- `A153` — Name or inbounds is required\n- `A164` — Snippet name already exists\n- `A166` — Snippet cannot be empty\n- `A167` — Snippet cannot contain empty objects\n- `A172` — This name is reserved. Please use a different name.\n- `A173` — Template JSON is not allowed for YAML template\n- `A174` — Template YAML is not allowed for JSON template\n- `A175` — Template JSON and YAML cannot be updated simultaneously\n- `A176` — Template name already exists for this type\n- `A178` — Reserved template cannot be deleted\n- `A180` — Template type not allowed\n- `A189` — External squad name already exists\n- `A190` — Name or templates are required\n- `A194` — Passkeys not configured\n- `A195` — Passkeys not enabled. Please enable it first.\n- `A209` — Reserved config name\n- `A210` — Config name already exists\n- `A212` — Reserved subpage config cannot be deleted\n- `A215` — Invalid subscription page config\n- `A216` — Invalid Remnawave injector\n- `A223` — Node plugin name already exists\n- `A229` — One or more provided API token scopes are invalid\n- `A230` — Either nodeUuid or name must be provided\n- `A235` — Start date must be before or equal to end date\n- `A244` — Node integration name already exists\n- `A246` — Shared list name already exists"
-     }
-    },
-    "required": [
-     "timestamp",
-     "path",
-     "message",
-     "errorCode"
     ]
    },
    "RemnawaveInternalServerErrorDto": {
@@ -2103,12 +1581,40 @@
      "errorCode"
     ]
    },
-   "RemnawaveValidationErrorDto": {
+   "RevokeUserSubscriptionBodyDto": {
     "type": "object",
     "properties": {
+     "revokeOnlyPasswords": {
+      "default": false,
+      "description": "Optional. If true, only passwords will be revoked, without changing the short UUID (Subscription URL).",
+      "type": "boolean"
+     },
+     "shortUuid": {
+      "type": "string",
+      "minLength": 16,
+      "maxLength": 64,
+      "description": "Optional. If not provided, a new short UUID will be generated by Remnawave. Please note that it is strongly recommended to allow Remnawave to generate the short UUID."
+     }
+    }
+   },
+   "RwxUnifiedRemnawaveBadRequestErrorDto": {
+    "type": "object",
+    "properties": {
+     "timestamp": {
+      "type": "string",
+      "description": "Time when the error occurred, in ISO 8601 format."
+     },
+     "path": {
+      "type": "string",
+      "description": "Path of the request that caused the error."
+     },
      "message": {
       "type": "string",
       "description": "Human-readable error message."
+     },
+     "errorCode": {
+      "type": "string",
+      "description": "Error code. Possible values:\n\n- `A019` — User username already exists\n- `A020` — User short UUID already exists\n- `A021` — User subscription UUID already exists\n- `A029` — User already disabled\n- `A030` — User already enabled\n- `A033` — Node name already exists\n- `A034` — Node address already exists\n- `A045` — Host remark already exists\n- `A089` — LIMITED and EXPIRED statuses are not allowed to be set manually.\n- `A098` — User hwid device already exists\n- `A099` — User hwid device limit reached\n- `A144` — This name is reserved by Remnawave. Please use a different name.\n- `A145` — This name is reserved by Remnawave. Please use a different name.\n- `A149` — Node is disabled\n- `A152` — Name or config is required\n- `A153` — Name or inbounds is required\n- `A164` — Snippet name already exists\n- `A166` — Snippet cannot be empty\n- `A167` — Snippet cannot contain empty objects\n- `A172` — This name is reserved. Please use a different name.\n- `A173` — Template JSON is not allowed for YAML template\n- `A174` — Template YAML is not allowed for JSON template\n- `A175` — Template JSON and YAML cannot be updated simultaneously\n- `A176` — Template name already exists for this type\n- `A178` — Reserved template cannot be deleted\n- `A180` — Template type not allowed\n- `A189` — External squad name already exists\n- `A190` — Name or templates are required\n- `A194` — Passkeys not configured\n- `A195` — Passkeys not enabled. Please enable it first.\n- `A209` — Reserved config name\n- `A210` — Config name already exists\n- `A212` — Reserved subpage config cannot be deleted\n- `A215` — Invalid subscription page config\n- `A216` — Invalid Remnawave injector\n- `A223` — Node plugin name already exists\n- `A229` — One or more provided API token scopes are invalid\n- `A230` — Either nodeUuid or name must be provided\n- `A235` — Start date must be before or equal to end date\n- `A244` — Node integration name already exists\n- `A246` — Shared list name already exists"
      },
      "statusCode": {
       "type": "number",
@@ -2150,168 +1656,7 @@
      }
     },
     "required": [
-     "message",
-     "statusCode",
-     "errors"
-    ]
-   },
-   "RevokeUserSubscriptionBodyDto": {
-    "type": "object",
-    "properties": {
-     "revokeOnlyPasswords": {
-      "default": false,
-      "description": "Optional. If true, only passwords will be revoked, without changing the short UUID (Subscription URL).",
-      "type": "boolean"
-     },
-     "shortUuid": {
-      "type": "string",
-      "minLength": 16,
-      "maxLength": 64,
-      "description": "Optional. If not provided, a new short UUID will be generated by Remnawave. Please note that it is strongly recommended to allow Remnawave to generate the short UUID."
-     }
-    }
-   },
-   "UpdateInternalSquadBodyDto": {
-    "type": "object",
-    "properties": {
-     "uuid": {
-      "type": "string",
-      "format": "uuid",
-      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
-     },
-     "name": {
-      "type": "string",
-      "minLength": 2,
-      "maxLength": 30,
-      "pattern": "^[A-Za-z0-9_\\s-]+$"
-     },
-     "inbounds": {
-      "type": "array",
-      "items": {
-       "type": "string",
-       "format": "uuid",
-       "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
-      }
-     }
-    },
-    "required": [
-     "uuid"
-    ]
-   },
-   "UpdateInternalSquadResponseDto": {
-    "type": "object",
-    "properties": {
-     "response": {
-      "type": "object",
-      "properties": {
-       "uuid": {
-        "type": "string",
-        "format": "uuid",
-        "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
-       },
-       "viewPosition": {
-        "type": "integer",
-        "minimum": -9007199254740991,
-        "maximum": 9007199254740991
-       },
-       "name": {
-        "type": "string"
-       },
-       "tags": {
-        "type": "array",
-        "items": {
-         "type": "string"
-        }
-       },
-       "info": {
-        "type": "object",
-        "properties": {
-         "membersCount": {
-          "type": "number"
-         },
-         "inboundsCount": {
-          "type": "number"
-         }
-        },
-        "required": [
-         "membersCount",
-         "inboundsCount"
-        ]
-       },
-       "inbounds": {
-        "type": "array",
-        "items": {
-         "type": "object",
-         "properties": {
-          "uuid": {
-           "type": "string",
-           "format": "uuid",
-           "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
-          },
-          "profileUuid": {
-           "type": "string",
-           "format": "uuid",
-           "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
-          },
-          "tag": {
-           "type": "string"
-          },
-          "type": {
-           "type": "string"
-          },
-          "network": {
-           "type": "string",
-           "nullable": true
-          },
-          "security": {
-           "type": "string",
-           "nullable": true
-          },
-          "port": {
-           "type": "number",
-           "nullable": true
-          },
-          "rawInbound": {
-           "nullable": true
-          }
-         },
-         "required": [
-          "uuid",
-          "profileUuid",
-          "tag",
-          "type",
-          "network",
-          "security",
-          "port",
-          "rawInbound"
-         ]
-        }
-       },
-       "createdAt": {
-        "type": "string",
-        "format": "date-time",
-        "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
-       },
-       "updatedAt": {
-        "type": "string",
-        "format": "date-time",
-        "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
-       }
-      },
-      "required": [
-       "uuid",
-       "viewPosition",
-       "name",
-       "tags",
-       "info",
-       "inbounds",
-       "createdAt",
-       "updatedAt"
-      ]
-     }
-    },
-    "required": [
-     "response"
+     "message"
     ]
    },
    "UpdateUserBodyDto": {

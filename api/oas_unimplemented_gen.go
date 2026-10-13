@@ -13,21 +13,21 @@ type UnimplementedHandler struct{}
 
 var _ Handler = UnimplementedHandler{}
 
+// HwidUserDevicesControllerDeleteUserHwidDevice implements HwidUserDevicesController_deleteUserHwidDevice operation.
+//
+// Delete a user HWID device.
+//
+// POST /api/hwid/devices/delete
+func (UnimplementedHandler) HwidUserDevicesControllerDeleteUserHwidDevice(ctx context.Context, req *DeleteUserHwidDeviceBodyDto) (r HwidUserDevicesControllerDeleteUserHwidDeviceRes, _ error) {
+	return r, ht.ErrNotImplemented
+}
+
 // HwidUserDevicesControllerGetUserHwidDevices implements HwidUserDevicesController_getUserHwidDevices operation.
 //
 // Get user HWID devices.
 //
 // GET /api/hwid/devices/{userId}
 func (UnimplementedHandler) HwidUserDevicesControllerGetUserHwidDevices(ctx context.Context, params HwidUserDevicesControllerGetUserHwidDevicesParams) (r HwidUserDevicesControllerGetUserHwidDevicesRes, _ error) {
-	return r, ht.ErrNotImplemented
-}
-
-// InternalSquadControllerCreateInternalSquad implements InternalSquadController_createInternalSquad operation.
-//
-// Create internal squad.
-//
-// POST /api/internal-squads
-func (UnimplementedHandler) InternalSquadControllerCreateInternalSquad(ctx context.Context, req *CreateInternalSquadBodyDto) (r InternalSquadControllerCreateInternalSquadRes, _ error) {
 	return r, ht.ErrNotImplemented
 }
 
@@ -40,30 +40,12 @@ func (UnimplementedHandler) InternalSquadControllerGetInternalSquads(ctx context
 	return r, ht.ErrNotImplemented
 }
 
-// InternalSquadControllerUpdateInternalSquad implements InternalSquadController_updateInternalSquad operation.
-//
-// Update internal squad.
-//
-// PATCH /api/internal-squads
-func (UnimplementedHandler) InternalSquadControllerUpdateInternalSquad(ctx context.Context, req *UpdateInternalSquadBodyDto) (r InternalSquadControllerUpdateInternalSquadRes, _ error) {
-	return r, ht.ErrNotImplemented
-}
-
 // UsersControllerCreateUser implements UsersController_createUser operation.
 //
 // Create a new user.
 //
 // POST /api/users
 func (UnimplementedHandler) UsersControllerCreateUser(ctx context.Context, req *CreateUserBodyDto) (r UsersControllerCreateUserRes, _ error) {
-	return r, ht.ErrNotImplemented
-}
-
-// UsersControllerDeleteUser implements UsersController_deleteUser operation.
-//
-// Delete user.
-//
-// DELETE /api/users/{userId}
-func (UnimplementedHandler) UsersControllerDeleteUser(ctx context.Context, params UsersControllerDeleteUserParams) (r UsersControllerDeleteUserRes, _ error) {
 	return r, ht.ErrNotImplemented
 }
 
@@ -100,17 +82,6 @@ func (UnimplementedHandler) UsersControllerGetUserById(ctx context.Context, para
 //
 // GET /api/users/by-username/{username}
 func (UnimplementedHandler) UsersControllerGetUserByUsername(ctx context.Context, params UsersControllerGetUserByUsernameParams) (r UsersControllerGetUserByUsernameRes, _ error) {
-	return r, ht.ErrNotImplemented
-}
-
-// UsersControllerGetUsers implements UsersController_getUsers operation.
-//
-// Please note that the filters here are primarily intended for use by the frontend and rely on
-// expensive operators such as LIKE under the hood. Misusing these filters may negatively impact the
-// performance of your database.
-//
-// GET /api/users
-func (UnimplementedHandler) UsersControllerGetUsers(ctx context.Context, params UsersControllerGetUsersParams) (r UsersControllerGetUsersRes, _ error) {
 	return r, ht.ErrNotImplemented
 }
 

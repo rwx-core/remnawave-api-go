@@ -888,11 +888,6 @@
          "required": [
           "hwid",
           "userId",
-          "platform",
-          "osVersion",
-          "deviceModel",
-          "userAgent",
-          "requestIp",
           "createdAt",
           "updatedAt"
          ]
@@ -1094,11 +1089,6 @@
          "required": [
           "hwid",
           "userId",
-          "platform",
-          "osVersion",
-          "deviceModel",
-          "userAgent",
-          "requestIp",
           "createdAt",
           "updatedAt"
          ]

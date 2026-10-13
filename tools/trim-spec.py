@@ -71,6 +71,42 @@ def apply_integer_overrides(methods):
     return corrected
 
 
+# Fields the panel has always answered with null and 3.4.5 suddenly made
+# required. In the vendor's own 3.4.4 specification these carry
+# `"nullable": true` and sit outside `required`; in 3.4.5 they are required and
+# not nullable. A device with an unknown model or an unreported platform — the
+# normal case for a VPN client — then fails to decode, and one such device takes
+# the whole device list down with it. The older declaration is the evidence, so
+# these go back to optional.
+NULLABLE_AGAIN = ("platform", "osVersion", "deviceModel", "userAgent", "requestIp")
+
+
+def relax_nullable(schemas):
+    """Make the named properties optional again wherever they are required."""
+    relaxed = []
+
+    def visit(node, where):
+        if isinstance(node, dict):
+            required = node.get("required")
+            properties = node.get("properties")
+            if isinstance(required, list) and isinstance(properties, dict):
+                kept = [name for name in required if name not in NULLABLE_AGAIN]
+                if len(kept) != len(required):
+                    for name in set(required) & set(NULLABLE_AGAIN):
+                        properties[name]["nullable"] = True
+                        relaxed.append(f"{where}.{name}")
+                    node["required"] = kept
+            for key, value in node.items():
+                visit(value, f"{where}.{key}")
+        elif isinstance(node, list):
+            for index, item in enumerate(node):
+                visit(item, f"{where}[{index}]")
+
+    for name, schema in schemas.items():
+        visit(schema, name)
+    return relaxed
+
+
 def collect_refs(node, into):
     """Add every `#/components/schemas/...` reference found in node to into."""
     if isinstance(node, dict):
@@ -209,6 +245,7 @@ def main(source, target):
             break
 
     components = {k: v for k, v in (doc.get("components") or {}).items() if k != "schemas"}
+    relaxed = relax_nullable(schemas)
     components["schemas"] = {n: schemas[n] for n in sorted(keep) if n in schemas}
 
     info = doc.get("info") or {}
@@ -238,6 +275,9 @@ def main(source, target):
     print(f"schemas {len(schemas)} -> {len(components['schemas'])}")
     print(f"union responses flattened: {len(flattened)}, schemas created: {len(created)}")
     print(f"integer param corrections: {corrected}")
+    print(f"fields relaxed back to nullable: {len(relaxed)}")
+    for line in relaxed:
+        print(f"  {line}")
     for line in flattened:
         print(f"  {line}")
 

@@ -853,24 +853,34 @@ func (s *DeleteUserHwidDeviceResponseDtoResponseDevicesItem) encodeFields(e *jx.
 		e.Float64(s.UserId)
 	}
 	{
-		e.FieldStart("platform")
-		s.Platform.Encode(e)
+		if s.Platform.Set {
+			e.FieldStart("platform")
+			s.Platform.Encode(e)
+		}
 	}
 	{
-		e.FieldStart("osVersion")
-		s.OsVersion.Encode(e)
+		if s.OsVersion.Set {
+			e.FieldStart("osVersion")
+			s.OsVersion.Encode(e)
+		}
 	}
 	{
-		e.FieldStart("deviceModel")
-		s.DeviceModel.Encode(e)
+		if s.DeviceModel.Set {
+			e.FieldStart("deviceModel")
+			s.DeviceModel.Encode(e)
+		}
 	}
 	{
-		e.FieldStart("userAgent")
-		s.UserAgent.Encode(e)
+		if s.UserAgent.Set {
+			e.FieldStart("userAgent")
+			s.UserAgent.Encode(e)
+		}
 	}
 	{
-		e.FieldStart("requestIp")
-		s.RequestIp.Encode(e)
+		if s.RequestIp.Set {
+			e.FieldStart("requestIp")
+			s.RequestIp.Encode(e)
+		}
 	}
 	{
 		e.FieldStart("createdAt")
@@ -928,8 +938,8 @@ func (s *DeleteUserHwidDeviceResponseDtoResponseDevicesItem) Decode(d *jx.Decode
 				return errors.Wrap(err, "decode field \"userId\"")
 			}
 		case "platform":
-			requiredBitSet[0] |= 1 << 2
 			if err := func() error {
+				s.Platform.Reset()
 				if err := s.Platform.Decode(d); err != nil {
 					return err
 				}
@@ -938,8 +948,8 @@ func (s *DeleteUserHwidDeviceResponseDtoResponseDevicesItem) Decode(d *jx.Decode
 				return errors.Wrap(err, "decode field \"platform\"")
 			}
 		case "osVersion":
-			requiredBitSet[0] |= 1 << 3
 			if err := func() error {
+				s.OsVersion.Reset()
 				if err := s.OsVersion.Decode(d); err != nil {
 					return err
 				}
@@ -948,8 +958,8 @@ func (s *DeleteUserHwidDeviceResponseDtoResponseDevicesItem) Decode(d *jx.Decode
 				return errors.Wrap(err, "decode field \"osVersion\"")
 			}
 		case "deviceModel":
-			requiredBitSet[0] |= 1 << 4
 			if err := func() error {
+				s.DeviceModel.Reset()
 				if err := s.DeviceModel.Decode(d); err != nil {
 					return err
 				}
@@ -958,8 +968,8 @@ func (s *DeleteUserHwidDeviceResponseDtoResponseDevicesItem) Decode(d *jx.Decode
 				return errors.Wrap(err, "decode field \"deviceModel\"")
 			}
 		case "userAgent":
-			requiredBitSet[0] |= 1 << 5
 			if err := func() error {
+				s.UserAgent.Reset()
 				if err := s.UserAgent.Decode(d); err != nil {
 					return err
 				}
@@ -968,8 +978,8 @@ func (s *DeleteUserHwidDeviceResponseDtoResponseDevicesItem) Decode(d *jx.Decode
 				return errors.Wrap(err, "decode field \"userAgent\"")
 			}
 		case "requestIp":
-			requiredBitSet[0] |= 1 << 6
 			if err := func() error {
+				s.RequestIp.Reset()
 				if err := s.RequestIp.Decode(d); err != nil {
 					return err
 				}
@@ -1011,7 +1021,7 @@ func (s *DeleteUserHwidDeviceResponseDtoResponseDevicesItem) Decode(d *jx.Decode
 	// Validate required fields.
 	var failures []validate.FieldError
 	for i, mask := range [2]uint8{
-		0b11111111,
+		0b10000011,
 		0b00000001,
 	} {
 		if result := (requiredBitSet[i] & mask) ^ mask; result != 0 {
@@ -2069,24 +2079,34 @@ func (s *GetUserHwidDevicesResponseDtoResponseDevicesItem) encodeFields(e *jx.En
 		e.Float64(s.UserId)
 	}
 	{
-		e.FieldStart("platform")
-		s.Platform.Encode(e)
+		if s.Platform.Set {
+			e.FieldStart("platform")
+			s.Platform.Encode(e)
+		}
 	}
 	{
-		e.FieldStart("osVersion")
-		s.OsVersion.Encode(e)
+		if s.OsVersion.Set {
+			e.FieldStart("osVersion")
+			s.OsVersion.Encode(e)
+		}
 	}
 	{
-		e.FieldStart("deviceModel")
-		s.DeviceModel.Encode(e)
+		if s.DeviceModel.Set {
+			e.FieldStart("deviceModel")
+			s.DeviceModel.Encode(e)
+		}
 	}
 	{
-		e.FieldStart("userAgent")
-		s.UserAgent.Encode(e)
+		if s.UserAgent.Set {
+			e.FieldStart("userAgent")
+			s.UserAgent.Encode(e)
+		}
 	}
 	{
-		e.FieldStart("requestIp")
-		s.RequestIp.Encode(e)
+		if s.RequestIp.Set {
+			e.FieldStart("requestIp")
+			s.RequestIp.Encode(e)
+		}
 	}
 	{
 		e.FieldStart("createdAt")
@@ -2144,8 +2164,8 @@ func (s *GetUserHwidDevicesResponseDtoResponseDevicesItem) Decode(d *jx.Decoder)
 				return errors.Wrap(err, "decode field \"userId\"")
 			}
 		case "platform":
-			requiredBitSet[0] |= 1 << 2
 			if err := func() error {
+				s.Platform.Reset()
 				if err := s.Platform.Decode(d); err != nil {
 					return err
 				}
@@ -2154,8 +2174,8 @@ func (s *GetUserHwidDevicesResponseDtoResponseDevicesItem) Decode(d *jx.Decoder)
 				return errors.Wrap(err, "decode field \"platform\"")
 			}
 		case "osVersion":
-			requiredBitSet[0] |= 1 << 3
 			if err := func() error {
+				s.OsVersion.Reset()
 				if err := s.OsVersion.Decode(d); err != nil {
 					return err
 				}
@@ -2164,8 +2184,8 @@ func (s *GetUserHwidDevicesResponseDtoResponseDevicesItem) Decode(d *jx.Decoder)
 				return errors.Wrap(err, "decode field \"osVersion\"")
 			}
 		case "deviceModel":
-			requiredBitSet[0] |= 1 << 4
 			if err := func() error {
+				s.DeviceModel.Reset()
 				if err := s.DeviceModel.Decode(d); err != nil {
 					return err
 				}
@@ -2174,8 +2194,8 @@ func (s *GetUserHwidDevicesResponseDtoResponseDevicesItem) Decode(d *jx.Decoder)
 				return errors.Wrap(err, "decode field \"deviceModel\"")
 			}
 		case "userAgent":
-			requiredBitSet[0] |= 1 << 5
 			if err := func() error {
+				s.UserAgent.Reset()
 				if err := s.UserAgent.Decode(d); err != nil {
 					return err
 				}
@@ -2184,8 +2204,8 @@ func (s *GetUserHwidDevicesResponseDtoResponseDevicesItem) Decode(d *jx.Decoder)
 				return errors.Wrap(err, "decode field \"userAgent\"")
 			}
 		case "requestIp":
-			requiredBitSet[0] |= 1 << 6
 			if err := func() error {
+				s.RequestIp.Reset()
 				if err := s.RequestIp.Decode(d); err != nil {
 					return err
 				}
@@ -2227,7 +2247,7 @@ func (s *GetUserHwidDevicesResponseDtoResponseDevicesItem) Decode(d *jx.Decoder)
 	// Validate required fields.
 	var failures []validate.FieldError
 	for i, mask := range [2]uint8{
-		0b11111111,
+		0b10000011,
 		0b00000001,
 	} {
 		if result := (requiredBitSet[i] & mask) ^ mask; result != 0 {

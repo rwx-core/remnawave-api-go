@@ -445,15 +445,15 @@ func (s *DeleteUserHwidDeviceResponseDtoResponse) SetDevices(val []DeleteUserHwi
 }
 
 type DeleteUserHwidDeviceResponseDtoResponseDevicesItem struct {
-	Hwid        string    `json:"hwid"`
-	UserId      float64   `json:"userId"`
-	Platform    NilString `json:"platform"`
-	OsVersion   NilString `json:"osVersion"`
-	DeviceModel NilString `json:"deviceModel"`
-	UserAgent   NilString `json:"userAgent"`
-	RequestIp   NilString `json:"requestIp"`
-	CreatedAt   time.Time `json:"createdAt"`
-	UpdatedAt   time.Time `json:"updatedAt"`
+	Hwid        string       `json:"hwid"`
+	UserId      float64      `json:"userId"`
+	Platform    OptNilString `json:"platform"`
+	OsVersion   OptNilString `json:"osVersion"`
+	DeviceModel OptNilString `json:"deviceModel"`
+	UserAgent   OptNilString `json:"userAgent"`
+	RequestIp   OptNilString `json:"requestIp"`
+	CreatedAt   time.Time    `json:"createdAt"`
+	UpdatedAt   time.Time    `json:"updatedAt"`
 }
 
 // GetHwid returns the value of Hwid.
@@ -467,27 +467,27 @@ func (s *DeleteUserHwidDeviceResponseDtoResponseDevicesItem) GetUserId() float64
 }
 
 // GetPlatform returns the value of Platform.
-func (s *DeleteUserHwidDeviceResponseDtoResponseDevicesItem) GetPlatform() NilString {
+func (s *DeleteUserHwidDeviceResponseDtoResponseDevicesItem) GetPlatform() OptNilString {
 	return s.Platform
 }
 
 // GetOsVersion returns the value of OsVersion.
-func (s *DeleteUserHwidDeviceResponseDtoResponseDevicesItem) GetOsVersion() NilString {
+func (s *DeleteUserHwidDeviceResponseDtoResponseDevicesItem) GetOsVersion() OptNilString {
 	return s.OsVersion
 }
 
 // GetDeviceModel returns the value of DeviceModel.
-func (s *DeleteUserHwidDeviceResponseDtoResponseDevicesItem) GetDeviceModel() NilString {
+func (s *DeleteUserHwidDeviceResponseDtoResponseDevicesItem) GetDeviceModel() OptNilString {
 	return s.DeviceModel
 }
 
 // GetUserAgent returns the value of UserAgent.
-func (s *DeleteUserHwidDeviceResponseDtoResponseDevicesItem) GetUserAgent() NilString {
+func (s *DeleteUserHwidDeviceResponseDtoResponseDevicesItem) GetUserAgent() OptNilString {
 	return s.UserAgent
 }
 
 // GetRequestIp returns the value of RequestIp.
-func (s *DeleteUserHwidDeviceResponseDtoResponseDevicesItem) GetRequestIp() NilString {
+func (s *DeleteUserHwidDeviceResponseDtoResponseDevicesItem) GetRequestIp() OptNilString {
 	return s.RequestIp
 }
 
@@ -512,27 +512,27 @@ func (s *DeleteUserHwidDeviceResponseDtoResponseDevicesItem) SetUserId(val float
 }
 
 // SetPlatform sets the value of Platform.
-func (s *DeleteUserHwidDeviceResponseDtoResponseDevicesItem) SetPlatform(val NilString) {
+func (s *DeleteUserHwidDeviceResponseDtoResponseDevicesItem) SetPlatform(val OptNilString) {
 	s.Platform = val
 }
 
 // SetOsVersion sets the value of OsVersion.
-func (s *DeleteUserHwidDeviceResponseDtoResponseDevicesItem) SetOsVersion(val NilString) {
+func (s *DeleteUserHwidDeviceResponseDtoResponseDevicesItem) SetOsVersion(val OptNilString) {
 	s.OsVersion = val
 }
 
 // SetDeviceModel sets the value of DeviceModel.
-func (s *DeleteUserHwidDeviceResponseDtoResponseDevicesItem) SetDeviceModel(val NilString) {
+func (s *DeleteUserHwidDeviceResponseDtoResponseDevicesItem) SetDeviceModel(val OptNilString) {
 	s.DeviceModel = val
 }
 
 // SetUserAgent sets the value of UserAgent.
-func (s *DeleteUserHwidDeviceResponseDtoResponseDevicesItem) SetUserAgent(val NilString) {
+func (s *DeleteUserHwidDeviceResponseDtoResponseDevicesItem) SetUserAgent(val OptNilString) {
 	s.UserAgent = val
 }
 
 // SetRequestIp sets the value of RequestIp.
-func (s *DeleteUserHwidDeviceResponseDtoResponseDevicesItem) SetRequestIp(val NilString) {
+func (s *DeleteUserHwidDeviceResponseDtoResponseDevicesItem) SetRequestIp(val OptNilString) {
 	s.RequestIp = val
 }
 
@@ -838,15 +838,15 @@ func (s *GetUserHwidDevicesResponseDtoResponse) SetDevices(val []GetUserHwidDevi
 }
 
 type GetUserHwidDevicesResponseDtoResponseDevicesItem struct {
-	Hwid        string    `json:"hwid"`
-	UserId      float64   `json:"userId"`
-	Platform    NilString `json:"platform"`
-	OsVersion   NilString `json:"osVersion"`
-	DeviceModel NilString `json:"deviceModel"`
-	UserAgent   NilString `json:"userAgent"`
-	RequestIp   NilString `json:"requestIp"`
-	CreatedAt   time.Time `json:"createdAt"`
-	UpdatedAt   time.Time `json:"updatedAt"`
+	Hwid        string       `json:"hwid"`
+	UserId      float64      `json:"userId"`
+	Platform    OptNilString `json:"platform"`
+	OsVersion   OptNilString `json:"osVersion"`
+	DeviceModel OptNilString `json:"deviceModel"`
+	UserAgent   OptNilString `json:"userAgent"`
+	RequestIp   OptNilString `json:"requestIp"`
+	CreatedAt   time.Time    `json:"createdAt"`
+	UpdatedAt   time.Time    `json:"updatedAt"`
 }
 
 // GetHwid returns the value of Hwid.
@@ -860,27 +860,27 @@ func (s *GetUserHwidDevicesResponseDtoResponseDevicesItem) GetUserId() float64 {
 }
 
 // GetPlatform returns the value of Platform.
-func (s *GetUserHwidDevicesResponseDtoResponseDevicesItem) GetPlatform() NilString {
+func (s *GetUserHwidDevicesResponseDtoResponseDevicesItem) GetPlatform() OptNilString {
 	return s.Platform
 }
 
 // GetOsVersion returns the value of OsVersion.
-func (s *GetUserHwidDevicesResponseDtoResponseDevicesItem) GetOsVersion() NilString {
+func (s *GetUserHwidDevicesResponseDtoResponseDevicesItem) GetOsVersion() OptNilString {
 	return s.OsVersion
 }
 
 // GetDeviceModel returns the value of DeviceModel.
-func (s *GetUserHwidDevicesResponseDtoResponseDevicesItem) GetDeviceModel() NilString {
+func (s *GetUserHwidDevicesResponseDtoResponseDevicesItem) GetDeviceModel() OptNilString {
 	return s.DeviceModel
 }
 
 // GetUserAgent returns the value of UserAgent.
-func (s *GetUserHwidDevicesResponseDtoResponseDevicesItem) GetUserAgent() NilString {
+func (s *GetUserHwidDevicesResponseDtoResponseDevicesItem) GetUserAgent() OptNilString {
 	return s.UserAgent
 }
 
 // GetRequestIp returns the value of RequestIp.
-func (s *GetUserHwidDevicesResponseDtoResponseDevicesItem) GetRequestIp() NilString {
+func (s *GetUserHwidDevicesResponseDtoResponseDevicesItem) GetRequestIp() OptNilString {
 	return s.RequestIp
 }
 
@@ -905,27 +905,27 @@ func (s *GetUserHwidDevicesResponseDtoResponseDevicesItem) SetUserId(val float64
 }
 
 // SetPlatform sets the value of Platform.
-func (s *GetUserHwidDevicesResponseDtoResponseDevicesItem) SetPlatform(val NilString) {
+func (s *GetUserHwidDevicesResponseDtoResponseDevicesItem) SetPlatform(val OptNilString) {
 	s.Platform = val
 }
 
 // SetOsVersion sets the value of OsVersion.
-func (s *GetUserHwidDevicesResponseDtoResponseDevicesItem) SetOsVersion(val NilString) {
+func (s *GetUserHwidDevicesResponseDtoResponseDevicesItem) SetOsVersion(val OptNilString) {
 	s.OsVersion = val
 }
 
 // SetDeviceModel sets the value of DeviceModel.
-func (s *GetUserHwidDevicesResponseDtoResponseDevicesItem) SetDeviceModel(val NilString) {
+func (s *GetUserHwidDevicesResponseDtoResponseDevicesItem) SetDeviceModel(val OptNilString) {
 	s.DeviceModel = val
 }
 
 // SetUserAgent sets the value of UserAgent.
-func (s *GetUserHwidDevicesResponseDtoResponseDevicesItem) SetUserAgent(val NilString) {
+func (s *GetUserHwidDevicesResponseDtoResponseDevicesItem) SetUserAgent(val OptNilString) {
 	s.UserAgent = val
 }
 
 // SetRequestIp sets the value of RequestIp.
-func (s *GetUserHwidDevicesResponseDtoResponseDevicesItem) SetRequestIp(val NilString) {
+func (s *GetUserHwidDevicesResponseDtoResponseDevicesItem) SetRequestIp(val OptNilString) {
 	s.RequestIp = val
 }
 

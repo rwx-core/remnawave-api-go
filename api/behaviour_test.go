@@ -129,6 +129,37 @@ func TestBadRequestDecodesBothErrorShapes(t *testing.T) {
 	})
 }
 
+// TestDeviceWithoutOptionalFields covers the nullability restored in
+// tools/trim-spec.py. A VPN client that reports no model and no platform is
+// ordinary, and the vendor's own 3.4.4 specification marks these fields
+// nullable; 3.4.5 makes them required, which would turn one incomplete device
+// into a failed decode of the whole list.
+func TestDeviceWithoutOptionalFields(t *testing.T) {
+	t.Parallel()
+
+	const body = `{"response":{"total":1,"devices":[{"hwid":"device-1","userId":12345,"createdAt":"2026-10-13T10:00:00Z","updatedAt":"2026-10-13T10:05:00Z"}]}}`
+	client := newClient(t, http.StatusOK, body, new(string))
+
+	res, err := client.HwidUserDevicesControllerGetUserHwidDevices(t.Context(), api.HwidUserDevicesControllerGetUserHwidDevicesParams{UserId: 12345})
+	if err != nil {
+		t.Fatalf("want a typed result, got error: %v", err)
+	}
+	list, ok := res.(*api.GetUserHwidDevicesResponseDto)
+	if !ok {
+		t.Fatalf("result = %T, want *api.GetUserHwidDevicesResponseDto", res)
+	}
+	if len(list.Response.Devices) != 1 {
+		t.Fatalf("devices = %d, want 1", len(list.Response.Devices))
+	}
+	device := list.Response.Devices[0]
+	if device.Hwid != "device-1" {
+		t.Errorf("hwid = %q, want %q", device.Hwid, "device-1")
+	}
+	if device.Platform.Set {
+		t.Errorf("platform = %+v, want unset", device.Platform)
+	}
+}
+
 // TestUnexpectedStatusStaysReachable covers statuses the specification does not
 // model — 503 here, the proxy case rwx-store retries on. The panel can answer
 // with something the document never promised, and both the status code and the
